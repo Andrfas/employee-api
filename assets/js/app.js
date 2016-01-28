@@ -35,6 +35,14 @@ app.config(['$routeProvider', '$controllerProvider', '$locationProvider',
                     '/js/controllers/RegisterEmployeeCntrl.js'
                 ])}
             })
+            .when('/registrationCompany', {
+                templateUrl: '/templates/reg_comp.html',
+                controller:'RegisterEmployeeCntrl',
+                resolve: {
+                    deps: app.resolveScriptDeps([
+                    '/js/controllers/RegisterEmployeeCntrl.js'
+                ])}
+            })
 
         //$locationProvider.html5Mode({
         //    enabled: true,
