@@ -3,5 +3,7 @@
 }
 
 .results {
-    
+    min-height: 10px;
+    max-width: 500px;
+    border: 1px solid black;
 }
