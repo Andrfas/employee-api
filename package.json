@@ -36,6 +36,11 @@
   "author": "anonymous node/sails user",
   "license": "",
   "devDependencies": {
+    "karma": "^0.13.19",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-mocha": "^0.2.1",
+    "mocha": "^2.4.4",
     "sails-hook-autoreload": "^0.13.0"
   }
 }
