@@ -1,6 +1,5 @@
 {
 	"hooks": {
-        "grunt": false,
 	    "orm": false,
 	    "pubsub": false,
 	    "blueprints": false
