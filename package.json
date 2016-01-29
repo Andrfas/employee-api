@@ -39,6 +39,8 @@
   "author": "anonymous node/sails user",
   "license": "",
   "devDependencies": {
+    "grunt-karma": "^0.12.1",
+    "grunt-mocha-test": "^0.12.7",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.6",
