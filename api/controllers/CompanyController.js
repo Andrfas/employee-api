@@ -34,7 +34,7 @@ function createCompany(req, res) {
             }
 
             return res.ok();
-        }
+        })
             
     })
 }
