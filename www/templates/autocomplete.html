@@ -1,0 +1,4 @@
+<input class="searchbox" type="text" ng-model="searchStr" />
+<div class="results" ng-show="areResultsVisible">
+    <div class="result" ng-repeat="result in results" ng-click="selectElem(result)">{{result}}</div>
+</div>

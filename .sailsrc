@@ -7,15 +7,5 @@
 	},
 	"generators": {
 	    "modules": {}
-	},
-    "commands": {
-        "deploy": {
-            "module": "sails-deploy-azure"
-        }
-    },
-    "azure": {
-        "sitename": "employeeukraine.azurewebsites.net",
-        "username": "andrfas",
-        "password": "andrfas5972"
-    }
+	}
 }
