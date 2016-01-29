@@ -13,7 +13,7 @@
         }
     },
     "azure": {
-        "sitename": "employeeukraine",
+        "sitename": "employeeukraine.azurewebsites.net",
         "username": "andrfas",
         "password": "andrey5972"
     }
