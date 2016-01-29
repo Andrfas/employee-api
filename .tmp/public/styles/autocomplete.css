@@ -1,0 +1,23 @@
+.searchbox {
+
+}
+
+.results {  
+    position: absolute;
+    min-height: 10px;
+    min-width: 80px;
+    z-index: 100;
+    border: 1px solid black;
+    background: white;
+}
+
+.results > .result {
+    background: white;
+    line-height:25px;
+    vertical-align:middle;
+}
+
+.results > .result:hover {
+    background: #EAEAEA;
+    cursor:pointer;
+}
