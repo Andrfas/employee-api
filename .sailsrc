@@ -3,8 +3,18 @@
 	    "orm": false,
 	    "pubsub": false,
 	    "blueprints": false
-	  },
-	  "generators": {
+	},
+	"generators": {
 	    "modules": {}
-	  }
+	},
+    "commands": {
+        "deploy": {
+            "module": "sails-deploy-azure"
+        }
+    },
+    "azure": {
+        "sitename": "employeeukraine",
+        "username": "andrfas",
+        "password": "andrey5972"
+    }
 }
