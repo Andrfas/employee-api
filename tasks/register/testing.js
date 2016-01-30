@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
     grunt.registerTask('testing', [
-        // 'mocha:testServer',
-        'karma:continious'
+        // 'mochas:continious',
+        'mochaTest:test'
     ]);
 };
