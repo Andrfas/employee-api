@@ -4,7 +4,8 @@ var async = require('async')
 var db = require('../../libs/mongoose.js');
 
 module.exports = {
-    signIn: signIn
+    signIn: signIn,
+    signOut: signOut
 }
 
 function signIn(req, res){
@@ -15,7 +16,10 @@ function signIn(req, res){
 
  	async.waterfall([
         function(callback) {
-   			requestsDB.findOne('Credentials', req.body.email, function(response){
+        	var findCriteria = {
+        		email: req.body.email
+        	}
+   			requestsDB.findOne('Credentials', findCriteria, function(response){
                 if (response.status) {
                     return res.json({status:response.status, msg:'[AuthorizationController signIn] '+response.msg})
                 }
@@ -68,6 +72,23 @@ function signIn(req, res){
 
 }
 
+function signOut(req, res){
+
+    var searchFields = {
+        token: req.headers['authorization']
+    }
+
+    var updateFields = {
+        token: null
+    }
+
+    requestsDB.update('Credentials', searchFields, updateFields, function(response){
+        if (response.status) {
+            return res.json({status:response.status, msg:'[AuthorizationController signOut] '+response.msg})
+        }
+        res.ok({status:200})
+    })
+}
 
 function generateToken(callback){
 	require('crypto').randomBytes(48, function(ex, buf) {

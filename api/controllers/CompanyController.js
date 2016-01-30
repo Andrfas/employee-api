@@ -38,10 +38,10 @@ function createCompany(req, res) {
                 if (response.status) {
                     return res.json({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
                 }
-                callback(response)
+                callback()
             })
         }
-    ], function (result) {
+    ], function () {
         return res.ok({status: 200});
     });
 

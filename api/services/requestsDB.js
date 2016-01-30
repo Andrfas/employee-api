@@ -4,8 +4,8 @@ module.exports = {
     
     create: function(model, obj, callback) {
     	db[model].create(obj, function(err, res){
-    		if (err) {
-    			callback({status: 400, msg:'[requestsDB service] create error: '+err.errmsg})
+    		if (err || res === null) {
+    			callback({status: 400, msg:'[requestsDB service] create error'})
     			return;
     		}
     		callback(res)
@@ -13,8 +13,8 @@ module.exports = {
     },
     find: function(model, obj, callback) {
     	db[model].find(obj, function(err, res){
-    		if (err) {
-    			callback({status: 400, msg:'[requestsDB service] find error: '+err.errmsg})
+    		if (err || res === null) {
+    			callback({status: 400, msg:'[requestsDB service] find error'})
     			return;
     		}
     		callback(res)
@@ -22,8 +22,9 @@ module.exports = {
     },
     findOne: function(model, obj, callback) {
     	db[model].findOne(obj, function(err, res){
-    		if (err) {
-    			callback({status: 400, msg:'[requestsDB service] findOne error: '+err.errmsg})
+
+    		if (err || res === null) {
+    			callback({status: 400, msg:'[requestsDB service] findOne error'})
     			return;
     		}
     		callback(res)
@@ -31,8 +32,8 @@ module.exports = {
     },
     update: function(model, searchFields, updateFields, callback) {
     	db[model].update(searchFields, updateFields, function(err, res){
-    		if (err) {
-    			callback({status: 400, msg:'[requestsDB service] update error: '+err.errmsg})
+    		if (err || res === null) {
+    			callback({status: 400, msg:'[requestsDB service] update error'})
     			return;
     		}
 
@@ -43,8 +44,8 @@ module.exports = {
         var dbModel = new db.Credentials(obj)
         dbModel.changePass(obj.password)
         dbModel.save(function(err, res){
-        	if (err) {
-    			callback({status: 400, msg:'[requestsDB service] create error: '+err.errmsg})
+        	if (err || res === null) {
+    			callback({status: 400, msg:'[requestsDB service] createPass error'})
     			return;
     		}
         	callback(res)
