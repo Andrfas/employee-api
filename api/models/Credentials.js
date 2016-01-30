@@ -8,12 +8,12 @@ module.exports = function(mongoose) {
 		password	  : { type: String, required : true },
 		token         : { type: String },
 		company_id    : { type: String },
-		employee_id   : { type: Array },
+		employee_id   : { type: String },
 		last_activity : { type: Date }
 	 
 	})
 
-	credentialsSchema.methods.validPassword = function(password) {
+	credentialsSchema.methods.validPass = function(password) {
 	    return bcrypt.compareSync(password, this.password);
 	};
 

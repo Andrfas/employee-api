@@ -36,7 +36,8 @@ module.exports.routes = {
   //   view: 'homepage'
   // }
 
-  'PUT /company': 'CompanyController.createCompany'
+  'PUT /company': 'CompanyController.createCompany',
+  'POST /signIn': 'AuthorizationController.signIn'
 
   /***************************************************************************
   *                                                                          *

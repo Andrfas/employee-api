@@ -11,7 +11,7 @@ module.exports = {
 function createCompany(req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({status: 400, msg:'[CompanyController createCompany] Missed requeired field: '+reqFieldsPresent})
+        return res.json({status: 400, msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
     }
 
     var company = _.cloneDeep(req.body)
@@ -22,13 +22,12 @@ function createCompany(req, res) {
         function(callback) {
             requestsDB.create('Company', req.body, function(response){
                 if (response.status) {
-                    return res.json({status:response.status, msg:'[CompanyController createCompany company] '+response.msg})
+                    return res.json({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
                 }
             callback(null, response._id);
             })
         },
         function(id, callback) {
-
 
             var credentials = {
                 company_id: id,
@@ -37,19 +36,10 @@ function createCompany(req, res) {
             }
             requestsDB.changePass(credentials, function(response){
                 if (response.status) {
-                    return res.json({status:response.status, msg:'[CompanyController createCompany credentials] '+response.msg})
+                    return res.json({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
                 }
                 callback(response)
             })
-
-            // var company = new db(credentials)
-            // company.changePass(req.body.password)
-            // company.save()
-            // requestsDB.create('Credentials', credentials, function(response){
-            //     if (response.status) {
-            //         return res.json({status:response.status, msg:'[CompanyController createCompany credentials] '+response.msg})
-            //     }
-            // })
         }
     ], function (result) {
         return res.ok({status: 200});
@@ -57,7 +47,7 @@ function createCompany(req, res) {
 
 }
 
-// felds, that are requeired for request. Should be for each function, and should have the same name
+// fields, that are required for request. Should be for each function, and should have the same name
 var reqFields = {
     createCompany: [
         'name',
