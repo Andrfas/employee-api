@@ -1,7 +1,8 @@
-var requestsDB = require('../../api/services/requestsDB.js')
-var CommonFunctions = require('../../api/services/CommonFunctions.js')
-var _ = require('lodash')
-var async = require('async')
+var requestsDB = require('../../api/services/requestsDB.js');
+var credentialsCntrl = require('../../api/controllers/CredentialsController.js');
+var CommonFunctions = require('../../api/services/CommonFunctions.js');
+var _ = require('lodash');
+var async = require('async');
 
 module.exports = {
     createCompany: createCompany
@@ -17,31 +18,33 @@ function createCompany(req, res) {
     var company = _.cloneDeep(req.body)
     delete company.email 
     delete company.password
-     
     async.waterfall([
         function(callback) {
-            requestsDB.create('Company', req.body, function(response){
+            requestsDB.create('Company', company, function(response){
                 if (response.status) {
-                    return res.json({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
+                    return callback({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
                 }
-            callback(null, response._id);
+            callback(null, response);
             })
         },
-        function(id, callback) {
-
+        function(company, callback) {
             var credentials = {
-                company_id: id,
+                company_id: company._id,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                status: 'notConfirmed'
             }
-            requestsDB.changePass(credentials, function(response){
-                if (response.status) {
-                    return res.json({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
+            credentialsCntrl.createCredentials(credentials, function(err, response){
+                if (err) {
+                    return callback({status:err.status, msg:'[CompanyController createCompany] '+err.msg})
                 }
-                callback()
+                return callback(null, company)
             })
         }
-    ], function () {
+    ], function (err, response) {
+        if(err) {
+            return res.json(err);
+        }
         return res.ok({status: 200});
     });
 

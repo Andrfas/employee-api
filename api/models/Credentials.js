@@ -17,8 +17,8 @@ module.exports = function(mongoose) {
 	    return bcrypt.compareSync(password, this.password);
 	};
 
-	credentialsSchema.methods.changePass = function(password) {
-	    this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+	credentialsSchema.methods.getCrypted = function(password) {
+	    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 	};
 
 	return mongoose.model('credentials', credentialsSchema)

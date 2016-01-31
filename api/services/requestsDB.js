@@ -39,16 +39,5 @@ module.exports = {
 
     		callback(res)
     	})
-    },
-    changePass: function(obj, callback){
-        var dbModel = new db.Credentials(obj)
-        dbModel.changePass(obj.password)
-        dbModel.save(function(err, res){
-        	if (err || res === null) {
-    			callback({status: 400, msg:'[requestsDB service] createPass error'})
-    			return;
-    		}
-        	callback(res)
-        })
     }
 }
