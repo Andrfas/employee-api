@@ -3,6 +3,6 @@ module.exports = function (grunt) {
         'compileAssets', 
         'linkAssets',
         'testing',
-        'watch'
+        // 'watch'
     ]);
 };
