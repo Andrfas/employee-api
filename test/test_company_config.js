@@ -1,10 +1,10 @@
 var config = {};
 
 config.company= {
-	body:{
-		name: "MaxCorp",
-		description: "The best company in the world"
-	}
+	name: "MaxCorp",
+	description: "The best company in the world",
+	email: "test1@test.com",
+	password: "testtest"	
 }
 
 config.companyFull = {
