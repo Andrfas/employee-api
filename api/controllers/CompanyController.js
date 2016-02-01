@@ -1,5 +1,6 @@
 var requestsDB = require('../../api/services/requestsDB.js');
 var credentialsCntrl = require('../../api/controllers/CredentialsController.js');
+var mailingCntrl = require('../../api/controllers/MailingController.js');
 var CommonFunctions = require('../../api/services/CommonFunctions.js');
 var _ = require('lodash');
 var async = require('async');
@@ -18,8 +19,8 @@ function createCompany(req, res) {
     var company = _.cloneDeep(req.body)
     delete company.email 
     delete company.password
-    async.waterfall([
-        function(callback) {
+    async.auto({
+        createCompany: function(callback) {
             requestsDB.create('Company', company, function(response){
                 if (response.status) {
                     return callback({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
@@ -27,21 +28,29 @@ function createCompany(req, res) {
             callback(null, response);
             })
         },
-        function(company, callback) {
+        sendEmail: ['createCompany', function(callback, data) {
+            mailingCntrl.sendCompanyConfirm(data.createCompany._id, req.body.email, function(err, response){
+                if(err) {
+                    return callback({msg:'[CompanyController createCompany sendEmail] '+err})
+                }
+                callback(null, response);
+            })
+        }],
+        createCredentials: ['createCompany', function(callback, data) {
             var credentials = {
-                company_id: company._id,
+                company_id: data.createCompany._id,
                 email: req.body.email,
                 password: req.body.password,
                 status: 'notConfirmed'
             }
             credentialsCntrl.createCredentials(credentials, function(err, response){
                 if (err) {
-                    return callback({status:err.status, msg:'[CompanyController createCompany] '+err.msg})
+                    return callback({status:err.status, msg:'[CompanyController createCompany createCredentials] '+err.msg})
                 }
-                return callback(null, company)
+                return callback(null, data.createCompany)
             })
-        }
-    ], function (err, response) {
+        }]
+    }, function (err, response) {
         if(err) {
             return res.json(err);
         }
