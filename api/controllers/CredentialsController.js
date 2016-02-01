@@ -12,7 +12,7 @@ module.exports = {
         dbModel.password = dbModel.getCrypted(obj.password)
         dbModel.save(function(err, res){
             if (err || res === null) {
-                return callback({status: 400, msg:'[requestsDB service] createPass error'})
+                return callback({status: 400, msg:'[CredentialsCntrl createCredentials] creating error: '+ err})
             }
             callback(null, res)
         })
