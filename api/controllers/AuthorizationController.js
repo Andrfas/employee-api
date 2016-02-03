@@ -11,7 +11,7 @@ module.exports = {
 function signIn(req, res){
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.signIn, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({status: 400, msg:'[AuthorizationController signIn] Missed required field: '+reqFieldsPresent})
+        return res.json({msg:'[AuthorizationController signIn] Missed required field: '+reqFieldsPresent})
     }
 
  	async.waterfall([
@@ -19,9 +19,9 @@ function signIn(req, res){
         	var findCriteria = {
         		email: req.body.email
         	}
-   			requestsDB.findOne('Credentials', findCriteria, function(response){
-                if (response.status) {
-                    return res.json({status:response.status, msg:'[AuthorizationController signIn] '+response.msg})
+   			requestsDB.findOne('Credentials', findCriteria, function(err,response){
+                if (err) {
+                    return res.json({msg:'[AuthorizationController signIn] '+err.msg})
                 }
             callback(null, response);
             })
@@ -29,8 +29,9 @@ function signIn(req, res){
         function(user, callback) {
 
         	var dbModel = new db.Credentials(user)
+            console.log(user)
         	if (!dbModel.validPass(req.body.password)){
-        		return res.json({status:400, msg:'[AuthorizationController signIn] Invalid password'})
+        		return res.json({msg:'[AuthorizationController signIn] Invalid password'})
         	}
    			
             callback(null, user);
@@ -54,9 +55,9 @@ function signIn(req, res){
                 last_activity: new Date()
             }
 
-            requestsDB.update('Credentials', searchFields, updateFields, function(response){
-                if (response.status) {
-                    return res.json({status:response.status, msg:'[AuthorizationController signIn] '+response.msg})
+            requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
+                if (err) {
+                    return res.json({msg:'[AuthorizationController signIn] '+err.msg})
                 }
                 callback(user, token)
             })
@@ -82,9 +83,9 @@ function signOut(req, res){
         token: null
     }
 
-    requestsDB.update('Credentials', searchFields, updateFields, function(response){
-        if (response.status) {
-            return res.json({status:response.status, msg:'[AuthorizationController signOut] '+response.msg})
+    requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
+        if (err) {
+            return res.json({msg:'[AuthorizationController signOut] '+err.msg})
         }
         res.ok({status:200})
     })
