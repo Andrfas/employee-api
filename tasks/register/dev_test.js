@@ -1,8 +1,10 @@
 module.exports = function (grunt) {
-	grunt.registerTask('default', [
+	grunt.registerTask('dev_test', [
         'compileAssets', 
         'linkAssets',
         'testing',
-        // 'watch'
+        'execute:setDevDBConf',
+        'liftSails',
+        'watch'
     ]);
 };
