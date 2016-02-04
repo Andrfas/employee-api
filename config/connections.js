@@ -20,6 +20,16 @@
  */
 
 module.exports.connections = {
+    mode: 'dev',
+    test: {
+        host: 'mongodb://localhost/',
+        dbName: 'employeeDB_TEST'
+    },
+    dev: {
+        host: 'mongodb://localhost/',
+        dbName: 'employeeDB'
+    }
+
 
   /***************************************************************************
   *                                                                          *
