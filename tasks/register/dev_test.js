@@ -2,7 +2,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('dev-test', [
         'compileAssets', 
         'linkAssets',
-        'testing',
+        'test-server',
         'execute:setDevDBConf',
         'liftSails',
         'watch'
