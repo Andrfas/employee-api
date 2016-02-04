@@ -1,6 +1,7 @@
 var mailingParams = {
     confirmCompanyLink: "http://localhost:1337/confirm/company/",
-    confirmEmployeeLink: "http://localhost:1337/confirm/employee/"
+    confirmEmployeeLink: "http://localhost:1337/confirm/employee/",
+    mailFrom: 'noreply@employee.com.ua'
 }
 var sendgrid = require("sendgrid")("andrfas", "andrfas5972");
 
