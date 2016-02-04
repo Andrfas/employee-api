@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	grunt.registerTask('dev_test', [
+	grunt.registerTask('dev-test', [
         'compileAssets', 
         'linkAssets',
         'testing',
