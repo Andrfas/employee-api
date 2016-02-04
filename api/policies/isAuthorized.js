@@ -11,9 +11,9 @@ module.exports = function(req, res, next) {
 					token : req.headers['authorization']
 				}
 
-				requestsDB.findOne('Credentials', findCriteria, function(response){
+				requestsDB.findOne('Credentials', findCriteria, function(err,response){
 
-					if (response.status) {
+					if (err) {
 	                    return res.forbidden('You are not permitted to perform this action. Please, sign in')
 	                }
 	                callback(response)
@@ -30,9 +30,9 @@ module.exports = function(req, res, next) {
 		                token: null
 		            }
 
-		            requestsDB.update('Credentials', searchFields, updateFields, function(response){
-		                if (response.status) {
-		                    return res.json({status:response.status, msg:'[Authorization policy] '+response.msg})
+		            requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
+		                if (err) {
+		                    return res.json({msg:'[Authorization policy] '+err.msg})
 		                }
 		                return res.forbidden('You are not permitted to perform this action. Please, sign in')
 		            })
@@ -50,9 +50,9 @@ module.exports = function(req, res, next) {
 	                last_activity: new Date()
 	            }
 
-	            requestsDB.update('Credentials', searchFields, updateFields, function(response){
-	                if (response.status) {
-	                    return res.json({status:response.status, msg:'[Authorization policy] '+response.msg})
+	            requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
+	                if (err) {
+	                    return res.json({msg:'[Authorization policy] '+err.msg})
 	                }
 	                callback()
 	            })

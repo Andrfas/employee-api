@@ -13,7 +13,7 @@ module.exports = {
 function createCompany(req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({status: 400, msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
+        return res.json({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
     }
 
     var company = _.cloneDeep(req.body)
@@ -21,9 +21,9 @@ function createCompany(req, res) {
     delete company.password
     async.auto({
         createCompany: function(callback) {
-            requestsDB.create('Company', company, function(response){
-                if (response.status) {
-                    return callback({status:response.status, msg:'[CompanyController createCompany] '+response.msg})
+            requestsDB.create('Company', company, function(err,response){
+                if (err) {
+                    return callback({msg:'[CompanyController createCompany] '+err.msg})
                 }
             callback(null, response);
             })
@@ -31,7 +31,7 @@ function createCompany(req, res) {
         sendEmail: ['createCompany', function(callback, data) {
             mailingCntrl.sendCompanyConfirm(data.createCompany._id, req.body.email, function(err, response){
                 if(err) {
-                    return callback({msg:'[CompanyController createCompany sendEmail] '+err})
+                    return callback({msg:'[CompanyController createCompany sendEmail] '+err.msg})
                 }
                 callback(null, response);
             })
@@ -45,7 +45,7 @@ function createCompany(req, res) {
             }
             credentialsCntrl.createCredentials(credentials, function(err, response){
                 if (err) {
-                    return callback({status:err.status, msg:'[CompanyController createCompany createCredentials] '+err.msg})
+                    return callback({msg:'[CompanyController createCompany createCredentials] '+err.msg})
                 }
                 return callback(null, data.createCompany)
             })
