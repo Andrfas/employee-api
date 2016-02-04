@@ -8,16 +8,17 @@ describe("Company Controller Sails", function(){
 
 	describe('Successful scenario.', function(){
 
-			it("Should create new company with name and description", function(done){   
-			    	requestsDB.create('Company', config.company, function(res){
+			it("Should create company with name and description directly in db", function(done){   
+			    	requestsDB.create('Company', config.company, function(err, res){
 			    		// console.log(res)
+			    		assert.strictEqual(err, null);
 				    	assert.equal(res.name, config.company.name); 
 				    	assert.equal(res.description, config.company.description); 
 				    	done();
 				    	})	
 		    });
 
-			it("Should create new company with name and description", function(done){   
+			it("Should create company with name and description using controller", function(done){   
 
 				var ok = sinon.spy(cb);
 				var json = sinon.spy(cb);				
