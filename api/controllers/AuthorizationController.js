@@ -26,28 +26,28 @@ function signIn(req, res){
             callback(null, response);
             })
         },
-        function(user, callback) {
+        function(credentials, callback) {
 
-        	var dbModel = new db.Credentials(user)
-            console.log(user)
+        	var dbModel = new db.Credentials(credentials)
+            // console.log(credentials)
         	if (!dbModel.validPass(req.body.password)){
         		return res.json({msg:'[AuthorizationController signIn] Invalid password'})
         	}
    			
-            callback(null, user);
+            callback(null, credentials);
         },
-        function(user, callback) {
+        function(credentials, callback) {
 
         	generateToken(function(res){
         		var token = res;
 
-            	callback(null, user, token);
+            	callback(null, credentials, token);
         	});
         },
-        function(user, token, callback) {
+        function(credentials, token, callback) {
 
             var searchFields = {
-                _id: user._id
+                _id: credentials._id
             }
 
             var updateFields = {
@@ -59,15 +59,15 @@ function signIn(req, res){
                 if (err) {
                     return res.json({msg:'[AuthorizationController signIn] '+err.msg})
                 }
-                callback(user, token)
+                callback(credentials, token)
             })
         }
-    ], function (user, token) {
+    ], function (credentials, token) {
         return res.ok({
         	status: 200, 
         	token: token, 
-        	client_id: user._id,
-        	client_type: (user.company_id) ? 'company' : 'employee'
+        	client_id: credentials.client_id,
+        	client_type: credentials.client_type
         });
     });
 

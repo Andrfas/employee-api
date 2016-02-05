@@ -21,7 +21,8 @@ module.exports = {
 
 var reqFields = {
     createCredentials: [
-        'company_id',
+        'client_type',
+        'client_id',
         'email',
         'password',
         'status'

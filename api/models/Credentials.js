@@ -7,10 +7,10 @@ module.exports = function(mongoose) {
 		email         : { type: String, unique : true, required : true },
 		password	  : { type: String, required : true },
 		token         : { type: String },
-		company_id    : { type: String },
-		employee_id   : { type: String },
+		client_type   : { type: String, enum:['company', 'employee'], required : true },
+		client_id     : { type: String, required : true },
 		last_activity : { type: Date },
-		status : { type:String, enum:['confirmed', 'notConfirmed'] }
+		status : { type:String, enum:['confirmed', 'notConfirmed'], required : true }
 	 
 	})
 

@@ -38,7 +38,8 @@ function createCompany(req, res) {
         }],
         createCredentials: ['createCompany', function(callback, data) {
             var credentials = {
-                company_id: data.createCompany._id,
+                client_type: 'company',
+                client_id: data.createCompany._id,
                 email: req.body.email,
                 password: req.body.password,
                 status: 'notConfirmed'
