@@ -1,0 +1,346 @@
+<div class="container col-md-offset-3 col-md-6" ng-switch on="switcher">
+	<div class="row">
+		<h1 class="text-center">Create an Account</h1>
+	</div>
+	<div class="row">
+		<h1 class="text-center" style="line-height: 0px;"><small>Please, make your choise</small></h1>
+	</div>
+	<div class="row text-center">
+		<div class="col-md-6">
+			<img src="/images/ManCompany.png" class="img-rounded" alt="ImgCompany" ng-click="changeSelect('company')">	
+		</div>
+		<div class="col-md-6">
+			<img src="/images/ManStudent.png" class="img-rounded col-md-offset-2" alt="ImgStudent" ng-click="changeSelect('student')">
+		</div>
+		<div class="col-md-1 col-md-offset-2"> 
+			<button type="button" class="btn btn-link btn-lg" ng-click="changeSelect('company')">Company</button>
+		</div>
+		<div class="col-md-offset-6">
+				<button type="button" class="btn btn-link btn-lg" ng-click="changeSelect('student')">Student</button>
+		</div>
+	</div>
+	<div ng-switch-when="company">
+		<div class="container col-md-12">
+			<div class="row">
+				<div class="panel panel-default" style="background-color: #C0C0C0">
+					<div class="panel-body">
+						<div class="row">
+							<div class="progress col-md-offset-2 col-md-8" style="margin-top: 10px;">
+						  		<div class="progress-bar progress-bar-striped active" role="progressbar"
+						  		aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+						  		70%
+						  		</div>
+							</div>
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-1">Name*</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-10 col-md-offset-1" id="Name">
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-1">Website*</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-10 col-md-offset-1" id="Website">
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-4">Password</h3>
+							<h3 class="col-md-offset-1 col-md-4">Password Again</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-4 col-md-offset-1" id="Pass">
+							<input type="text" class="col-md-5 col-md-offset-1" id="PassAgain">
+						</div>
+						<div class="row" style="margin-top:20px;">
+							<button type="button" class="btn btn-primary col-md-offset-9 btn-lg" ng-click="changeSelect('company2')">Next Step</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
+			</div>
+		</div>
+	</div>
+	<div ng-switch-when="student">
+		<div class="container col-md-12">
+			<div class="row">
+				<div class="panel panel-default" style="background-color: #C0C0C0">
+					<div class="panel-body">
+						<div class="row">
+							<div class="progress col-md-offset-2 col-md-8" style="margin-top: 10px;">
+						  		<div class="progress-bar progress-bar-striped active" role="progressbar"
+						  		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+						  		30%
+						  		</div>
+							</div>
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-4">First Name*</h3>
+							<h3 class="col-md-offset-1 col-md-4">Last Name*</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-4 col-md-offset-1" id="Pass">
+							<input type="text" class="col-md-5 col-md-offset-1" id="PassAgain">
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-1">Email</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-10 col-md-offset-1" id="Website">
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-4">Password</h3>
+							<h3 class="col-md-offset-1 col-md-4">Password Again</h3>
+						</div>
+						<div class="row">
+							<input type="text" class="col-md-4 col-md-offset-1" id="Pass">
+							<input type="text" class="col-md-5 col-md-offset-1" id="PassAgain">
+						</div>
+						<div class="row" style="margin-top:20px;">
+							<button type="button" class="btn btn-primary col-md-offset-9 btn-lg" ng-click="changeSelect('student2')">Next Step</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
+			</div>
+		</div>
+	</div>
+	<div ng-switch-when="student2">
+		<div class="container col-md-12">
+			<div class="panel panel-default" style="background-color: #C0C0C0">
+				<div class="panel-body">
+					<div class="row">
+						<div class="progress col-md-offset-2 col-md-8" style="margin-top: 10px;">
+					  		<div class="progress-bar progress-bar-striped active" role="progressbar"
+					  		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+					  		30%
+					  		</div>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-4">Birth Date</h3>
+					</div>
+					<div class="row">	
+						<div class="col-md-4 col-md-offset-1">
+							<div class="input-group">
+						      <div class="input-group-btn">
+						      	<input type="text" class="form-control" aria-label="..." placeholder="Month">
+						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+						      </div>
+						    </div>
+						 </div>
+						 <div class="col-md-3 col-md-offset-1">
+						    <div class="input-group">
+						      <input type="text" class="form-control" aria-label="..." placeholder="Day">
+						      <div class="input-group-btn">
+						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+						      </div>
+						    </div>
+						</div>
+						<div class="col-md-2">
+						    <div class="input-group">
+						      <input type="text" class="form-control" aria-label="..." placeholder="Year">
+						      <div class="input-group-btn">
+						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+						      </div>
+						    </div>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-6">City you live now</h3>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-10">
+							<div class="input-group">
+						      <input type="text" class="form-control" aria-label="..." placegolder="Year">
+						      <div class="input-group-btn">
+						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>
+						      </div>
+						    </div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 25px;">
+						<div class="col-md-offset-2 col-md-4">
+							<button type="button" class="btn btn-default btn-block">Add Language</button>	
+						</div>
+						<div class="col-md-offset-1 col-md-4">
+							<button type="button" class="btn btn-default btn-block">Add Higher Education</button>	
+						</div>
+					</div>
+					<div class="row" style="margin-top:25px;">
+						<button type="button" class="btn btn-primary col-md-offset-9 btn-lg" ng-click="changeSelect('student3')">
+						Next Step</button>
+					</div>
+				</div>	
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
+			</div>
+		</div>
+	</div>
+	<div ng-switch-when="student3">
+		<div class="container col-md-12">
+			<div class="panel panel-default" style="background-color: #C0C0C0">
+				<div class="panel-body">
+					<div class="row">
+						<div class="progress col-md-offset-2 col-md-8" style="margin-top: 10px;">
+					  		<div class="progress-bar progress-bar-striped active" role="progressbar"
+					  		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%">
+					  		30%
+					  		</div>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-4">Add Your Skills</h3>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-4">
+							<button class="btn btn-block btn-default">Add Skill</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">JavaScript</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">HTML</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-1">
+							<h3><span class="label label-default">Objective-C</span></h3>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-6">Add Your Portfolio</h3>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-4">
+							<button class="btn btn-block btn-default">Add Portfolio</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">The Blog</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">Studio</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-1">
+							<h3><span class="label label-default">App-store</span></h3>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-10">Add Your Certificates&Courses</h3>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-5">
+							<button class="btn btn-block btn-default">Add Certificate</button>
+						</div>
+						<div class="col-md-5">
+							<button class="btn btn-block btn-default">Add Course</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">Course</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">Course</span></h3>
+						</div>
+						<div class="col-md-offset-1 col-md-1">
+							<h3><span class="label label-default">Certificate</span></h3>
+						</div>
+					</div>
+					<div class="row" style="line-height: 0px;">
+						<h3 class="col-md-offset-1 col-md-6">Add Your Work Expirience</h3>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-4">
+							<button class="btn btn-block btn-default">Add Work Expirience</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-2">
+							<h3><span class="label label-default">Name</span></h3>
+						</div>
+					</div>
+					<div class="row" style="margin-top:25px;">
+						<button type="button" class="btn btn-primary col-md-offset-9 btn-lg">
+						Get Started</button>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
+			</div>
+		</div>
+	</div>
+	<div ng-switch-when="company2">
+		<div class="container col-md-12">
+			<div class="row">
+				<div class="panel panel-default" style="background-color: #C0C0C0">
+					<div class="panel-body">
+						<div class="row">
+							<div class="progress col-md-offset-2 col-md-8" style="margin-top: 10px;">
+						  		<div class="progress-bar progress-bar-striped active" role="progressbar"
+						  		aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+						  		70%
+						  		</div>
+							</div>
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-4">Add City</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-1">
+								<button class="btn btn-default btn-block">Add City</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-offset-1 col-md-2">
+								<h3><span class="label label-default">Vinnitsa</span></h3>
+							</div>
+							<div class="col-md-offset-1 col-md-2">
+								<h3><span class="label label-default">Kyiv</span></h3>
+							</div>
+							<div class="col-md-offset-1 col-md-1">
+								<h3><span class="label label-default">Zhitomir</span></h3>
+							</div>
+						</div>
+						<div class="row" style="line-height: 0px;">
+							<h3 class="col-md-offset-1 col-md-4">Description</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-offset-1 col-md-10">
+								<textarea class="form-control" rows="5"></textarea>
+							</div>
+						</div>
+						<div class="row" style="margin-top:25px;">	
+							<div class="col-md-offset-1 col-md-3">
+								<img src="" class="img-rounded" alt="ImgEmploy">
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" class="form-control">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Browse...</button>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top:25px;">
+							<button type="button" class="btn btn-primary col-md-offset-9 btn-lg">
+							Get Started</button>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="row" style="margin-top:100px;">
+				<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
+			</div>
+		</div>
+	</div>
+</div>
