@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
     grunt.registerTask('test-server', [
-        'mongobin:restore_test',
+        'shell:dropTestDB',
+        'shell:restoreTestDBDump',
         'execute:setTestDBConf',
         'mochaTest:test'
     ]);
