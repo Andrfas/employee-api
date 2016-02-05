@@ -10,6 +10,17 @@ for(key in models) {
     mongooseModels[key] = models[key](mongoose);
 }
 
+if(dbConf.mode === 'test') {
+    console.log('TEST MODE');
+    var schema = new mongoose.Schema({
+     
+        nonRequiredStr: { type: String, required : true },
+        requiredStr   : { type: String, required : true }
+     
+    })
+    mongooseModels['testCollection'] = mongoose.model('testCollection', schema);
+}
+
 mongoose.connect(dbData.host+dbData.dbName, function(err) {
     if(err) {
         console.log('Error: ', err);
