@@ -9,7 +9,8 @@ module.exports = function(mongoose) {
 		token         : { type: String },
 		company_id    : { type: String },
 		employee_id   : { type: String },
-		last_activity : { type: Date }
+		last_activity : { type: Date },
+		status : { type:String, enum:['confirmed', 'notConfirmed'] }
 	 
 	})
 
