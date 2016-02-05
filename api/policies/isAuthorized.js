@@ -3,12 +3,12 @@ var async = require('async')
 
 module.exports = function(req, res, next) {
 
-	if (req.headers['authorization']){
+	if (req.headers['Authorization']){
 
 		async.waterfall([
 	        function(callback) {
 				var findCriteria = {
-					token : req.headers['authorization']
+					token : req.headers['Authorization']
 				}
 
 				requestsDB.findOne('Credentials', findCriteria, function(err,response){
@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 					if (err) {
 	                    return res.forbidden('You are not permitted to perform this action. Please, sign in')
 	                }
-	                callback(response)
+	                callback(null, response)
 				})
 	        },
 			function(user, callback) {
@@ -37,7 +37,7 @@ module.exports = function(req, res, next) {
 		                return res.forbidden('You are not permitted to perform this action. Please, sign in')
 		            })
 				} else {
-					callback(user)
+					callback(null, user)
 				}
 	        },
 	        function(user, callback) {
