@@ -24,8 +24,6 @@ if(dbConf.mode === 'test') {
 mongoose.connect(dbData.host+dbData.dbName, function(err) {
     if(err) {
         console.log('Error: ', err);
-    } else {
-        console.log('Connected to MongoDB !');
     }
 });
  
