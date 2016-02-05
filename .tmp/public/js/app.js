@@ -28,19 +28,11 @@ app.config(['$routeProvider', '$controllerProvider', '$locationProvider',
                 ])}
             })
             .when('/registration', {
-                templateUrl: '/templates/reg_empl.html',
-                controller:'RegisterEmployeeCntrl',
+                templateUrl: '/templates/reg_main.html',
+                controller:'RegisterMainCntrl',
                 resolve: {
                     deps: app.resolveScriptDeps([
-                    '/js/controllers/RegisterEmployeeCntrl.js'
-                ])}
-            })
-            .when('/registrationCompany', {
-                templateUrl: '/templates/reg_comp.html',
-                controller:'RegisterEmployeeCntrl',
-                resolve: {
-                    deps: app.resolveScriptDeps([
-                    '/js/controllers/RegisterEmployeeCntrl.js'
+                    '/js/controllers/RegisterMainCntrl.js'
                 ])}
             })
 
