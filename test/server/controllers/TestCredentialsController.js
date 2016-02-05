@@ -34,11 +34,6 @@ describe('api/controllers/CredentialsController', function() {
                     done();
                 })
             })
-            it.skip('should return error if some data is missing', function(done) {
-                credentialsCntrl.createCredentials(cred, function(err, res) {
-                    done();
-                })
-            })
         })
         
     })
