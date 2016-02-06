@@ -82,7 +82,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-4 col-md-offset-1">
-									<button class="btn btn-default btn-block">Add City</button>
+									<button class="btn btn-default btn-block" ng-click="openSelectCityWindow()">Add City</button>
 								</div>
 							</div>
 							<div class="row">
@@ -353,13 +353,13 @@
 	<button type="button" class="btn btn-link btn-xs" style="color:black;" >About us</button>|<button type="button" class="btn btn-link btn-xs" style="color:black;">Contact Us</button>
 </div>
 
-<script type="text/ng-template" id="selectCitiesModel.html">
+<script type="text/ng-template" id="selCityModal.html">
 <div class="myModal">
 	<div class="modal-header">
         <h3 class="modal-title">I'm a modal!</h3>
     </div>
     <div class="modal-body">
-        modal body
+        <autocomplete get-search-res="getCities(searchStr)" on-select="selectCity()" selected-data="selectedCity"></autocomplete>
     </div>
     <div class="modal-footer">
         modal footer
