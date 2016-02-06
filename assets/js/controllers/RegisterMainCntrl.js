@@ -1,6 +1,8 @@
 app.controller('RegisterMainCntrl', ['$scope', function($scope) {
-	$scope.choose = ['student', 'company'];
-  	$scope.changeSelect = function(person){
-  		$scope.switcher = person;
+	$scope.choose = ['employee', 'company'];
+    $scope.clientType;
+  	$scope.changeClientSelect = function(person){
+        // console.log(person);
+  		$scope.clientType = person;
   	}
 }])
