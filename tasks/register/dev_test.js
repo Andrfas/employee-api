@@ -4,7 +4,6 @@ module.exports = function (grunt) {
         'linkAssets',
         'test-server',
         'execute:setDevDBConf',
-        'liftSails',
-        'watch'
+        'concurrent:liftAndWatch'
     ]);
 };
