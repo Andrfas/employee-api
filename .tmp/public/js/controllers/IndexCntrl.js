@@ -9,5 +9,6 @@ app.controller('IndexCntrl', ['$scope', function($scope) {
     $scope.selectCity = function() {
         console.log('city', $scope.selectedCity);
     }
+
     
 }])

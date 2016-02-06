@@ -32,7 +32,9 @@ app.config(['$routeProvider', '$controllerProvider', '$locationProvider',
                 controller:'RegisterMainCntrl',
                 resolve: {
                     deps: app.resolveScriptDeps([
-                    '/js/controllers/RegisterMainCntrl.js'
+                    '/js/controllers/RegisterMainCntrl.js',
+                    '/js/controllers/RegCompanyCntrl.js',
+                    '/js/controllers/RegEmployeeCntrl.js'
                 ])}
             })
 
