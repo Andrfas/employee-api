@@ -54,6 +54,7 @@
     "grunt-karma": "^0.12.1",
     "grunt-mocha-test": "^0.12.7",
     "grunt-shell-spawn": "^0.3.10",
+    "http-server": "^0.8.5",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.6",
