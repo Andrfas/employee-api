@@ -4,6 +4,15 @@ module.exports = function(grunt) {
         lift: {
             command: 'sails lift'
         },
+        liftAsync: {
+            command: 'sails lift',
+            options: {
+                async: true
+            }
+        },
+        runFront: {
+            command: 'start http-server assets'
+        },
         restoreTestDBDump: {
             command: 'mongorestore --db employeeDB_TEST --drop ./test/mongo_dump/employeeDB_TEST'
         },
@@ -12,5 +21,5 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-shell-spawn');
 };
