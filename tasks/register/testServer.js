@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-    grunt.registerTask('test-server', [
+    grunt.registerTask('testServer', [
         'shell:dropTestDB',
         'shell:restoreTestDBDump',
         'execute:setTestDBConf',
