@@ -3,7 +3,7 @@
 An application for students to help them find work or courses
 
 
-## If you are working on beck-end:
+## If you are working on back-end:
 
 #### Lift server without api-tests:
 ```
