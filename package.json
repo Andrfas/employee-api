@@ -36,7 +36,8 @@
     "sails-deploy-azure": "^0.2.12",
     "sails-disk": "~0.10.0",
     "sails-mongo": "^0.11.6",
-    "sendgrid": "^2.0.0"
+    "sendgrid": "^2.0.0",
+    "skipper-gridfs": "^0.5.3"
   },
   "scripts": {
     "debug": "node debug app.js",

@@ -38,7 +38,8 @@ module.exports.routes = {
 
   'PUT /company': 'CompanyController.createCompany',
   'POST /signIn': 'AuthorizationController.signIn',
-  'POST /signOut': 'AuthorizationController.signOut'
+  'POST /signOut': 'AuthorizationController.signOut',
+  'PUT /image': 'ImageController.uploadImage'
 
   /***************************************************************************
   *                                                                          *
