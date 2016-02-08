@@ -20,8 +20,11 @@ function signIn(req, res){
         		email: req.body.email
         	}
    			requestsDB.findOne('Credentials', findCriteria, function(err,response){
-                if (err || res === null) {
+                if (err) {
                     return res.json({msg:'[AuthorizationController signIn] '+err.msg})
+                }
+                if (response === null) {
+                    return res.json({msg:'[AuthorizationController signIn] '+'Not found'})
                 }
             callback(null, response);
             })
