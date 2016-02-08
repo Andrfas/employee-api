@@ -40,7 +40,7 @@ function createCompany(req, res) {
             })
         }],
         sendEmail: ['createCompany', function(callback, data) {
-            mailingCntrl.sendCompanyConfirm('company', data.createCompany._id, req.body.email, function(err, response){
+            mailingCntrl.sendConfirmLetter('company', data.createCompany._id, req.body.email, function(err, response){
                 if(err) {
                     return callback({msg:'[CompanyController createCompany sendEmail] '+err.msg})
                 }
