@@ -31,7 +31,7 @@ var testData = {
         firstName: "Anton",
         lastName: "The best tester ever",
         languages: ['en','ua'],
-        email: "andrfas@gmail.com",
+        email: "andas@gmail.com",
         password: "12345"    
     }
 }
