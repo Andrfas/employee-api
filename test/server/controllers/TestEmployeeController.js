@@ -1,18 +1,18 @@
-var company = require('../../../api/controllers/CompanyController.js');
+var employee = require('../../../api/controllers/EmployeeController.js');
 
 var sinon = require('sinon');
 var assert = require('assert');
 var requestsDB = require('../../../api/services/requestsDB.js');
 
-describe("api/CompanyController", function(){ 
+describe("api/EmployeeController", function(){ 
 
-    describe('createCompany', function(){
+    describe('createEmployee.', function(){
 
-            it("Should create company with name and description", function(done){   
+            it("Should create employee with first name, lastname, languages", function(done){   
 
                 var ok = sinon.spy(cb);
                 var json = sinon.spy(cb);               
-                company.createCompany({body:testData.company}, {ok:ok, json:json});
+                employee.createEmployee({body:testData.employee}, {ok:ok, json:json});
                 function cb() { 
                     if(json.called) {
                         console.error(json.args);
@@ -27,10 +27,11 @@ describe("api/CompanyController", function(){
 });
 
 var testData = {
-    company: {
-        name: "MaxCorp",
-        description: "The best company in the world",
+    employee: {
+        firstName: "Anton",
+        lastName: "The best tester ever",
+        languages: ['en','ua'],
         email: "andrfas@gmail.com",
-        password: "testtest"    
+        password: "12345"    
     }
 }

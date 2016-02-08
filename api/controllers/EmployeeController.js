@@ -20,7 +20,7 @@ module.exports = {
 function createEmployee (req, res) {
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createEmployee, req.body);
     if(reqFieldsPresent !== true) {
-        return callback({msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
+        return res.json({msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
     }
     
     var employee = _.cloneDeep(req.body)
