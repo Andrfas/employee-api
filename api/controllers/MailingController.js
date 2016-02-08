@@ -6,10 +6,10 @@ var mailingParams = {
 var sendgrid = require("sendgrid")("andrfas", "andrfas5972");
 
 module.exports = {
-    sendCompanyConfirm: sendCompanyConfirm
+    sendConfirmLetter: sendConfirmLetter
 }
 
-function sendCompanyConfirm(user, userId, emailTo, cb) {
+function sendConfirmLetter(user, userId, emailTo, cb) {
     var email = {
         to:       emailTo,
         from:     mailingParams.mailFrom,
@@ -22,3 +22,4 @@ function sendCompanyConfirm(user, userId, emailTo, cb) {
         return cb(null, res);
     });
 }
+
