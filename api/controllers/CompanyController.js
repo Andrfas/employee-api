@@ -20,16 +20,27 @@ function createCompany(req, res) {
     delete company.email 
     delete company.password
     async.auto({
-        createCompany: function(callback) {
+        checkIfEmail: function (callback){
+            requestsDB.findOne('Credentials', {email: req.body.email}, function(err,response){
+                if (err) {
+                    return callback({msg:'[CompanyController checkIfEmail] '+err.msg})
+                }
+                if (response != null){
+                    return callback({msg: '[CompanyController checkIfEmail] email already exists'})
+                }
+                callback();
+            })
+        },
+        createCompany: ['checkIfEmail', function(callback) {
             requestsDB.create('Company', company, function(err,response){
                 if (err) {
                     return callback({msg:'[CompanyController createCompany] '+err.msg})
                 }
             callback(null, response);
             })
-        },
+        }],
         sendEmail: ['createCompany', function(callback, data) {
-            mailingCntrl.sendCompanyConfirm(data.createCompany._id, req.body.email, function(err, response){
+            mailingCntrl.sendConfirmLetter('company', data.createCompany._id, req.body.email, function(err, response){
                 if(err) {
                     return callback({msg:'[CompanyController createCompany sendEmail] '+err.msg})
                 }
