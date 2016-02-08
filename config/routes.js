@@ -40,6 +40,7 @@ module.exports.routes = {
   'PUT /employee': 'EmployeeController.createEmployee',
   'POST /signIn': 'AuthorizationController.signIn',
   'POST /signOut': 'AuthorizationController.signOut',
+  'PUT /image': 'ImageController.uploadImage',
   'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail'
 
   /***************************************************************************
