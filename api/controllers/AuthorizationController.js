@@ -20,7 +20,7 @@ function signIn(req, res){
         		email: req.body.email
         	}
    			requestsDB.findOne('Credentials', findCriteria, function(err,response){
-                if (err) {
+                if (err || res === null) {
                     return res.json({msg:'[AuthorizationController signIn] '+err.msg})
                 }
             callback(null, response);
@@ -67,7 +67,8 @@ function signIn(req, res){
         	status: 200, 
         	token: token, 
         	client_id: credentials.client_id,
-        	client_type: credentials.client_type
+        	client_type: credentials.client_type,
+            client_status: credentials.status
         });
     });
 

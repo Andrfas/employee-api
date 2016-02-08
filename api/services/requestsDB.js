@@ -4,7 +4,7 @@ module.exports = {
     
     create: function(model, obj, callback) {
     	db[model].create(obj, function(err, res){
-    		if (err || res === null) {
+    		if (err) {
     			callback({msg:'[requestsDB service] create error'})
     			return;
     		}
@@ -13,7 +13,7 @@ module.exports = {
     },
     find: function(model, obj, callback) {
     	db[model].find(obj, function(err, res){
-    		if (err || res === null) {
+    		if (err) {
     			callback({msg:'[requestsDB service] find error'})
     			return;
     		}
@@ -23,7 +23,7 @@ module.exports = {
     findOne: function(model, obj, callback) {
     	db[model].findOne(obj, function(err, res){
 
-    		if (err || res === null) {
+    		if (err) {
     			callback({msg:'[requestsDB service] findOne error'})
     			return;
     		}
@@ -32,7 +32,7 @@ module.exports = {
     },
     update: function(model, searchFields, updateFields, callback) {
     	db[model].update(searchFields, updateFields, function(err, res){
-    		if (err || res === null) {
+    		if (err) {
     			callback({msg:'[requestsDB service] update error'})
     			return;
     		}
