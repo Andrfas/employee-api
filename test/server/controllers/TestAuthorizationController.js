@@ -15,13 +15,13 @@ var testData = {
             'client_type':'company',
             'email':'1dofhbnsdghsd@sajhdfjv.su',
             'password':'1JHg3h3h4gjhvl4',
-            'status':'confirmed'
+            'status':'notActivated'
         },{
             'client_id':2,
             'client_type':'employee',
             'email':'2dofhbnsdghsd@sajhdfjv.su',
             'password':'2JHg3h3h4gjhvl4',
-            'status':'confirmed'
+            'status':'notActivated'
         }
     ]
 }
@@ -48,7 +48,7 @@ describe('api/controllers/AuthorizationController', function() {
                 }
             }, function(err, res) {
                 if(err) {
-                    done(err);
+                    return done(err);
                 }
                 done();
             })
