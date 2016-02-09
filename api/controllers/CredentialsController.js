@@ -28,11 +28,14 @@ function confirmEmail(req, res){
         client_id: req.param('clientId')
     }
     var toUpd = {
-        status: 'notActivated' 
+        $set:{status: 'notActivated'} 
     }
-    requestsDB.update('Credentials', toFind, toUpd, function(err,result){
+    var options = { multi: true };
+    requestsDB.update('Credentials', toFind, toUpd, { multi: true },  function(err,result){
         if (err){
-            return res.redirect('500')
+            return res.redirect('500');
+        } else if(result.nModified !== 1) {
+            return res.redirect('500');
         }
             return res.redirect('/#/confirmed')            
         })
