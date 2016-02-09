@@ -30,8 +30,8 @@ module.exports = {
     		callback(null,res)
     	})
     },
-    update: function(model, searchFields, updateFields, callback) {
-    	db[model].update(searchFields, updateFields, function(err, res){
+    update: function(model, searchFields, updateFields, options, callback) {
+    	db[model].update(searchFields, updateFields, options, function(err, res){
     		if (err) {
     			callback({msg:'[requestsDB service] update error'})
     			return;
