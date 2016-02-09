@@ -3,11 +3,14 @@ module.exports = function(grunt) {
     grunt.config.set('karma', {
         unit: {
             configFile: 'karma.conf.js',
+            singleRun: true,
         },
         //continuous integration mode: run tests once in PhantomJS browser.
-        continious: {
+        unitC: {
             configFile: 'karma.conf.js',
-            singleRun: true,
+            singleRun: false,
+            background: true,
+
             // browsers: ['PhantomJS']
         }
     });
