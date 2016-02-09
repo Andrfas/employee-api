@@ -60,7 +60,6 @@ describe('api/controllers/CredentialsController', function() {
                     assert.notEqual(res.redirect.args[0][0], '500');
                     requestsDB.findOne('Credentials', {email: cred.email}, function(err, result){
                         assert.equal(err, null);
-                        console.log(result);
                         assert.equal('notActivated', result.status)
                         done()
                     })
