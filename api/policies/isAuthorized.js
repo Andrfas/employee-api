@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
 
 				requestsDB.findOne('Credentials', findCriteria, function(err,response){
 
-					if (err || res === null) {
+					if (err || response === null) {
 	                    return res.forbidden('You are not permitted to perform this action. Please, sign in')
 	                }
 	                callback(null, response)
