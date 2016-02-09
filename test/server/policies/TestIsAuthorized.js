@@ -98,16 +98,16 @@ var testData = {
         last_activity: new Date(),
         'email': 'kdkdsajfsd@vzcvxcv.su',
         'password': 'Ahskd3445429',
-        'status': 'confirmed'// | confirmed
+        'status': 'notActivated'// | confirmed
     },
     validReq: {
         headers:{
-            Authorization: 'HJGd0789adsg0SAD0asd08ygasd0qdadganakjfdfash'
+            authorization: 'HJGd0789adsg0SAD0asd08ygasd0qdadganakjfdfash'
         }
     },
     invalidReq: {
         headers:{
-            Authorization: 'ssssssssssssssssssssssssssssssssssssssssssss'
+            authorization: 'ssssssssssssssssssssssssssssssssssssssssssss'
         }
     }
 }
