@@ -47,6 +47,9 @@ describe('api/controllers/AuthorizationController', function() {
                     })
                 }
             }, function(err, res) {
+                if(err) {
+                    done(err);
+                }
                 done();
             })
             
