@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         unitC: {
             configFile: 'karma.conf.js',
             singleRun: false,
-            background: true,
+            // background: true
 
             // browsers: ['PhantomJS']
         }
