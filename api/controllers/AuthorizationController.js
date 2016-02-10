@@ -11,7 +11,7 @@ module.exports = {
 function signIn(req, res){
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.signIn, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({msg:'[AuthorizationController signIn] Missed required field: '+reqFieldsPresent})
+        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
     }
 
  	async.waterfall([
@@ -21,10 +21,10 @@ function signIn(req, res){
         	}
    			requestsDB.findOne('Credentials', findCriteria, function(err,response){
                 if (err) {
-                    return res.json({msg:'[AuthorizationController signIn] '+err.msg})
+                    return res.json({success:false, data:{status:500, msg:'Error while finding credentials document'}})
                 }
                 if (response === null) {
-                    return res.json({msg:'[AuthorizationController signIn] '+'Not found'})
+                    return res.json({success:false, data:{status:1, msg:'Account with such email is not found.'}})
                 }
             callback(null, response);
             })
@@ -34,7 +34,7 @@ function signIn(req, res){
         	var dbModel = new db.Credentials(credentials)
             // console.log(credentials)
         	if (!dbModel.validPass(req.body.password)){
-        		return res.json({msg:'[AuthorizationController signIn] Invalid password'})
+        		return res.json({success:false, data:{status: 1, msg:'Password is invalid.'}})
         	}
    			
             callback(null, credentials);
@@ -60,18 +60,21 @@ function signIn(req, res){
 
             requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
                 if (err) {
-                    return res.json({msg:'[AuthorizationController signIn] '+err.msg})
+                    return res.json({success:false, data:{status:500, msg:'Error while updating credentials document'}})
                 }
                 callback(credentials, token)
             })
         }
     ], function (credentials, token) {
-        return res.ok({
-        	status: 200, 
-        	token: token, 
-        	client_id: credentials.client_id,
-        	client_type: credentials.client_type,
-            client_status: credentials.status
+        return res.json({
+            success:true, 
+            data:{
+            	status: 200, 
+            	token: token, 
+            	client_id: credentials.client_id,
+            	client_type: credentials.client_type,
+                client_status: credentials.status
+            }
         });
     });
 
@@ -89,9 +92,9 @@ function signOut(req, res){
 
     requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
         if (err) {
-            return res.json({msg:'[AuthorizationController signOut] '+err.msg})
+            return res.json({success:false, data:{status:500, msg:'Error while updating credentials document'}})
         }
-        res.ok({status:200})
+        res.ok({success:true, data:{status:200}})
     })
 }
 
