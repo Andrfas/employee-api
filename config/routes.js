@@ -38,6 +38,7 @@ module.exports.routes = {
 
   'PUT /company': 'CompanyController.createCompany',
   'PUT /employee': 'EmployeeController.createEmployee',
+  'PUT /advert': 'AdvertController.createAdvert',
   'POST /signIn': 'AuthorizationController.signIn',
   'POST /signOut': 'AuthorizationController.signOut',
   'PUT /image': 'ImageController.uploadImage',
