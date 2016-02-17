@@ -18,23 +18,26 @@ module.exports = {
 }
 
 function createEmployee (req, res) {
-	var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createEmployee, req.body);
+    console.log(req.body);
+    var fields = _.pick(req.body, Fields.createEmployee.allowed);
+    console.log(fields);
+	var reqFieldsPresent = CommonFunctions.areKeysInObj(Fields.createEmployee.required, fields);
     if(reqFieldsPresent !== true) {
-        return res.json({msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
+        return res.json({success:false, msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
     }
     
-    var employee = _.cloneDeep(req.body)
+    var employee = _.cloneDeep(fields)
     delete employee.email 
     delete employee.password
 
     async.auto({
     	checkIfEmail: function (callback){
-            requestsDB.findOne('Credentials', {email: req.body.email}, function(err,response){
+            requestsDB.findOne('Credentials', {email: fields.email}, function(err,response){
                 if (err) {
-                    return callback({msg:'[EmployeeController checkIfEmail] '+err.msg})
+                    return callback({success:false, msg:'[EmployeeController checkIfEmail] '+err.msg})
                 }
                 if (response != null){
-                    return callback({msg: '[EmployeeController checkIfEmail] email already exists'})
+                    return callback({success:false, msg: '[EmployeeController checkIfEmail] email already exists'})
                 }
                 callback();
             })
@@ -42,15 +45,15 @@ function createEmployee (req, res) {
         createEmployee: ['checkIfEmail', function(callback) {
             requestsDB.create('Employee', employee, function(err,response){
                 if (err) {
-                    return callback({msg:'[EmployeeController createEmployee] '+err.msg})
+                    return callback({success:false, msg:'[EmployeeController createEmployee] '+err.msg})
                 }
             callback(null, response);
             })
         }],
         sendEmail: ['createEmployee', function(callback, data) {
-            mailingCntrl.sendConfirmLetter('employee', data.createEmployee._id, req.body.email, function(err, response){
+            mailingCntrl.sendConfirmLetter('employee', data.createEmployee._id, fields.email, function(err, response){
                 if(err) {
-                    return callback({msg:'[EmployeeController createEmployee sendEmail] '+err.msg})
+                    return callback({success:false, msg:'[EmployeeController createEmployee sendEmail] '+err.msg})
                 }
                 callback(null, response);
             })
@@ -59,13 +62,13 @@ function createEmployee (req, res) {
             var credentials = {
                 client_type: 'employee',
                 client_id: data.createEmployee._id,
-                email: req.body.email,
-                password: req.body.password,
+                email: fields.email,
+                password: fields.password,
                 status: 'notConfirmed'
             }
             credentialsCntrl.createCredentials(credentials, function(err, response){
                 if (err) {
-                    return callback({msg:'[CompanyController createCompany createCredentials] '+err})
+                    return callback({success:false, msg:'[CompanyController createCompany createCredentials] '+err})
                 }
                 return callback(null, data.createCompany)
             })
@@ -74,15 +77,26 @@ function createEmployee (req, res) {
     	if(err) {
             return res.json(err);
         }
-        return res.ok({status: 200});
+        return res.json({success:true, status: 200});
     });
 }
 
-var reqFields = {
-    createEmployee: [
-        'firstName',
-        'lastName'
-    ]
+
+var Fields = {
+    createEmployee: {
+        allowed: [
+            'firstName',
+            'lastName',
+            'email',
+            'password'
+        ],
+        required: [
+            'firstName',
+            'lastName',
+            'email',
+            'password'
+        ]
+    }
 }
 
 
