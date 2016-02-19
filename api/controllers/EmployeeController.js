@@ -18,9 +18,7 @@ module.exports = {
 }
 
 function createEmployee (req, res) {
-    console.log(req.body);
     var fields = _.pick(req.body, Fields.createEmployee.allowed);
-    console.log(fields);
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(Fields.createEmployee.required, fields);
     if(reqFieldsPresent !== true) {
         return res.json({success:false, msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
