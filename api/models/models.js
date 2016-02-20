@@ -4,5 +4,6 @@ module.exports = {
     Credentials: require('./Credentials.js'),
     Employee: require('./Employee.js'),
     Advert: require('./Advert.js'),
+    Skill: require('./Skill.js'),
 
 }
