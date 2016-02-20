@@ -48,7 +48,9 @@ module.exports.routes = {
 
   'PUT /image': 'ImageController.uploadImage',
 
-  'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail'
+  'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail',
+
+  'GET /skill': 'SkillController.getSkills'
 
   /***************************************************************************
   *                                                                          *
