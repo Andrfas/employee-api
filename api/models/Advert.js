@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
 		description        : { type: Array },
 		short_description         : { type: String },
 		skills         : { type: Array },
-		city         : { type: Array },
+		cities         : { type: Array },
 		isActive         : { type: String },
 		hoursPerWeek         : { type: String },
 		paid         : { type: Boolean },
