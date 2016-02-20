@@ -12,10 +12,10 @@ module.exports = function(mongoose) {
 		skills         : { type: Array },
 		cities         : { type: Array },
 		isActive         : { type: String },
-		hoursPerWeek         : { type: String },
+		hoursPerWeek         : { type: String, enum:['more_than_30', 'less_than_30', 'of_necessity'] },
 		paid         : { type: Boolean },
 		needPay         : { type: Boolean },
-		emplType         : { type: String },
+		emplType         : { type: String, enum:['fulltime', 'underemployment', 'distant_work'] },
 		dateSelEnd         : { type: String },
 		submitted         : { type: String },
 	 
