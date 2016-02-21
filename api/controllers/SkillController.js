@@ -10,7 +10,6 @@ module.exports = {
 
 function getSkills(req, res) {
     var name = req.allParams().name;
-    console.log(123, name);
     if(typeof name === 'undefined') {
         return res.json({success:false, msg:'name of the skill should be specified'})
     }
