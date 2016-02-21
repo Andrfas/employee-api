@@ -1,10 +1,12 @@
 var requestsDB = require('../../api/services/requestsDB.js');
+var db = require('../../libs/mongoose.js');
 var _ = require('lodash');
 var async = require('async');
 var CommonFunctions = require('../../api/services/CommonFunctions.js');
 
 module.exports = {
-	createAdvert: createAdvert
+	createAdvert: createAdvert,
+    getAdverts: getAdverts
 }
 
 function createAdvert (req, res) {
@@ -69,6 +71,41 @@ function createAdvert (req, res) {
     
 }
 
+function getAdverts(req, res) {
+    var fields = _.pick(req.body, Fields.getAdverts.allowed);
+    var reqFieldsPresent = CommonFunctions.areKeysInObj(Fields.getAdverts.required, fields);
+    if(reqFieldsPresent !== true) {
+        return res.json({success:false, msg:'[AdvertController getAdverts] Missed required field: '+reqFieldsPresent})
+    }
+
+    var page = fields.page;
+    var count = fields.count;
+    delete fields.page;
+    delete fields.count;
+
+    fields = _.mapValues(fields, function(value, key, obj) {
+        switch(key) {
+            case 'cities':
+            case 'skills':
+            case 'paid':
+            case 'needPay':
+            case 'emplType':
+            case 'hoursPerWeek':
+            case 'subcategory':
+                return {$in:value};
+        }
+        return value;
+    })
+    console.log(fields);
+    db['Advert'].find(fields).skip((page-1)*count).limit(count).exec(function(err, response){
+        if (err) {
+            res.json({success:false, msg:'[requestsDB service] find error'})
+            return;
+        }
+        res.json({success:true, data:response})
+    })
+}
+
 // fields, that are required for request. Should be for each function, and should have the same name
 var reqFields = {
     createAdvert: [
@@ -85,4 +122,25 @@ var reqFields = {
         'emplType',
         'dateSelEnd'
     ]
+}
+
+var Fields = {
+    getAdverts: {
+        allowed: [
+            'count',
+            'page',
+            'company',
+            'subcategory',
+            'hoursPerWeek',
+            'paid',
+            'needPay',
+            'emplType',
+            'cities',
+            'skills'
+        ],
+        required: [
+            'count',
+            'page'
+        ]
+    }
 }
