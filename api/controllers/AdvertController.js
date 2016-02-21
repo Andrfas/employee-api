@@ -83,7 +83,7 @@ function getAdverts(req, res) {
     delete fields.page;
     delete fields.count;
 
-    fields = _.mapValues(fields, function(value, key, obj) {
+    fields = _.forOwn(fields, function(value, key) {
         switch(key) {
             case 'cities':
             case 'skills':
@@ -92,9 +92,12 @@ function getAdverts(req, res) {
             case 'emplType':
             case 'hoursPerWeek':
             case 'subcategory':
-                return {$in:value};
+                if(value.length == 0) {
+                    delete fields[key];
+                } else {
+                    fields[key] = {$in:value};
+                }
         }
-        return value;
     })
     console.log(fields);
     db['Advert'].find(fields).skip((page-1)*count).limit(count).exec(function(err, response){
