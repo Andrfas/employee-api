@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
 		category   : { type: String, required : true },
 		subcategory         : { type: String },
 		title          : { type: String },
-		description        : { type: Array },
+		description        : { type: String },
 		short_description         : { type: String },
 		skills         : { type: Array },
 		cities         : { type: Array },
