@@ -3,19 +3,18 @@ var async = require('async')
 
 module.exports = function(req, res, next) {
 
-    if (req.body.email){
+    if (req.body.company){
 
         async.waterfall([
             function(callback) {
                 var findCriteria = {
-                    email: req.body.email
+                    client_id: req.body.company
                 }
                 requestsDB.findOne('Credentials', findCriteria, function(err,response){
-
                     if (err) {
-                        return res.json({ success: false, msg: '[isConfirmed policy] Find credentials error'});
+                        return res.json({success:false, msg: '[isConfirmed policy] Find credentials error'});
                     } else if(response === null) {
-                        return res.json({ success: false, msg: '[isConfirmed policy] No credentials found'});                        
+                        return res.json({success:false, msg: '[isConfirmed policy] No credentials found'});                        
                     }
                     callback(null, response)
                 })
@@ -23,15 +22,14 @@ module.exports = function(req, res, next) {
             function(cred, callback) {
 
                 if(cred.status === 'notConfirmed') {
-                    return res.json({ success: false, msg:'You have not confirmed your account. Please check email for letter with confirmation link'})
+                    return res.json({success:false, msg:'You have not confirmed your account. Please check email for letter with confirmation link'})
                 } else {
                     return next();
                 }
             }
         ]);
-
     } else {
-        return res.json({ success: false, msg: 'No email specified'});
+        return res.json({success: false, msg: 'No email specified'});
     }
 
 };
