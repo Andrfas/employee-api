@@ -4,6 +4,7 @@ module.exports = function(mongoose) {
 	var schema = new mongoose.Schema({
 	 
 		company          : { type: String, required : true },
+		companyName          : { type: String, required : true },
 		category   : { type: String, required : true },
 		subcategory         : { type: String },
 		title          : { type: String },

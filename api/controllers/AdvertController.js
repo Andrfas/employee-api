@@ -8,19 +8,46 @@ module.exports = {
 }
 
 function createAdvert (req, res) {
-	var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createAdvert, req.body);
+    var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createAdvert, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({msg:'[AdvertController createAdvert] Missed required field: '+reqFieldsPresent})
+        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})})
     }
 
-    var advert = _.cloneDeep(req.body)
-    
-    requestsDB.create('Advert', advert, function(err,response) {
+    async.waterfall([
+        function (callback) {
+            var findCriteria = {
+                _id: req.body.company
+            }
+            requestsDB.findOne('Company', findCriteria, function(err,response){
                 if (err) {
-                    return res.json({msg:'[AdvertController createAdvert] '+err.msg})
+                    return res.json({success:false, data:{status:500, msg:'Error while finding company document'}})
                 }
-                res.json({status: 200});
+                if (response === null) {
+                    return res.json({success:false, data:{status:1, msg:'Company with such id is not found.'}})
+                }
+            callback(null, response);
             })
+        },
+        function  (company, callback) {
+            var advert = _.cloneDeep(req.body);
+            advert.companyName = company.name;
+            requestsDB.create('Advert', advert, function(err,response) {
+                if (err) {
+                    return res.json({success:false, data:{status:500, msg:'Error while creating company document'}})
+                }
+                if (response === null) {
+                    return res.json({success:false, data:{status:1, msg:'Company not created'}})
+                }
+                callback(response);
+            });
+        }], function  (argument) {
+        return res.json({
+            success:true, 
+            data:{
+                status: 200
+            }
+        });
+    });
 }
 
 // fields, that are required for request. Should be for each function, and should have the same name

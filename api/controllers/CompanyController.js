@@ -13,7 +13,7 @@ module.exports = {
 function createCompany(req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
+        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
     }
 
     var company = _.cloneDeep(req.body)
