@@ -6,7 +6,8 @@ var _ = require('lodash');
 var async = require('async');
 
 module.exports = {
-    createCompany: createCompany
+    createCompany: createCompany,
+    getCompany: getCompany
 }
 
 
@@ -68,6 +69,23 @@ function createCompany(req, res) {
         }
         return res.ok({status: 200});
     });
+
+}
+
+function getCompany(req, res) {
+    if(!req.params.profileId) {
+        return res.json({success:false, msg: 'Profile id is not specified'})
+    }
+
+    requestsDB.findOne('Company', {'_id': req.params.profileId}, function(err,response){
+        if (err) {
+            return res.json({success: false, msg:'[CompanyController getCompany] '+err.msg})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No company found with specified id'})
+        }
+        return res.json({success:true, data:response});
+    })
 
 }
 

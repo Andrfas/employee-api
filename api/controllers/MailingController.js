@@ -14,7 +14,7 @@ function sendConfirmLetter(user, userId, emailTo, cb) {
         to:       emailTo,
         from:     mailingParams.mailFrom,
         subject:  "Account activation",
-        text:     "Confirm account activation <a href="+mailingParams[user]+userId+">"+mailingParams[user]+userId+"</a>"
+        text:     "Confirm account activation "+mailingParams[user]+userId
     };
 
     sendgrid.send(email, function(err, res) {

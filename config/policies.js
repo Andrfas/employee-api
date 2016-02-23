@@ -50,6 +50,7 @@ module.exports.policies = {
 	// }
 
   AuthorizationController: {
+    'signIn': 'isConfirmed',
     'signOut': 'isAuthorized'
   }
 };
