@@ -10,7 +10,7 @@ module.exports = {
 function createAdvert (req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createAdvert, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})})
+        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
     }
 
     async.waterfall([
