@@ -43,6 +43,7 @@ module.exports.routes = {
 
   'POST /advert': 'AdvertController.getAdverts',
   'PUT /advert': 'AdvertController.createAdvert',
+  'GET /advert/:advertId': 'AdvertController.getAdvert',
 
   'POST /signIn': 'AuthorizationController.signIn',
   'POST /signOut': 'AuthorizationController.signOut',

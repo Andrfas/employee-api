@@ -6,7 +6,8 @@ var CommonFunctions = require('../../api/services/CommonFunctions.js');
 
 module.exports = {
 	createAdvert: createAdvert,
-    getAdverts: getAdverts
+    getAdverts: getAdverts,
+    getAdvert: getAdvert
 }
 
 function createAdvert (req, res) {
@@ -124,6 +125,23 @@ function getAdverts(req, res) {
             return;
         }
         res.json({success:true, data:response})
+    })
+}
+
+function getAdvert (req, res) {
+    console.log('getAdvert called');
+    if(!req.params.advertId) {
+        return res.json({success:false, msg: 'Advert id is not specified'})
+    }
+
+    requestsDB.findOne('Advert', {'_id': req.params.advertId}, function(err,response){
+        if (err) {
+            return res.json({success: false, msg:'No adverts found with specified id'})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No adverts found with specified id'})
+        }
+        return res.json({success:true, data:response});
     })
 }
 
