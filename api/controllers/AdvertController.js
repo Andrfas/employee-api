@@ -129,7 +129,6 @@ function getAdverts(req, res) {
 }
 
 function getAdvert (req, res) {
-    console.log('getAdvert called');
     if(!req.params.advertId) {
         return res.json({success:false, msg: 'Advert id is not specified'})
     }
