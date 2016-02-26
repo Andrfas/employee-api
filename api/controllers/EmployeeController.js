@@ -14,7 +14,8 @@ var credentialsCntrl = require('../../api/controllers/CredentialsController.js')
 var mailingCntrl = require('../../api/controllers/MailingController.js');
 
 module.exports = {
-	createEmployee: createEmployee
+	createEmployee: createEmployee,
+    getEmployee: getEmployee
 }
 
 function createEmployee (req, res) {
@@ -77,6 +78,22 @@ function createEmployee (req, res) {
         }
         return res.json({success:true, status: 200});
     });
+}
+
+function getEmployee (req, res) {
+    if(!req.params.employeeId) {
+        return res.json({success:false, msg: 'Employee id is not specified'})
+    }
+
+    requestsDB.findOne('Employee', {'_id': req.params.employeeId}, function(err,response){
+        if (err) {
+            return res.json({success: false, msg:'No employees found with specified id'})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No employees found with specified id'})
+        }
+        return res.json({success:true, data:response});
+    })
 }
 
 

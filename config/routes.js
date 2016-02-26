@@ -40,6 +40,7 @@ module.exports.routes = {
   'GET /company/:profileId': 'CompanyController.getCompany',
 
   'PUT /employee': 'EmployeeController.createEmployee',
+  'GET /employee/:employeeId': 'EmployeeController.getEmployee',
 
   'POST /advert': 'AdvertController.getAdverts',
   'PUT /advert': 'AdvertController.createAdvert',
