@@ -3,7 +3,6 @@ var assert = require('assert');
 var requestsDB = require('../../../api/services/requestsDB.js');
 
 describe("api/CompanyModel", function(){ 
-    describe('Successful scenario.', function(){
         it("Should create company with name and description directly in db", function(done){   
                 requestsDB.create('Company', testData.company, function(err, res){
                     // console.log(res)
@@ -13,7 +12,6 @@ describe("api/CompanyModel", function(){
                     done();
                     })  
         });
-    })
 })
 
 var testData = {

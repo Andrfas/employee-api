@@ -37,8 +37,23 @@ module.exports.routes = {
   // }
 
   'PUT /company': 'CompanyController.createCompany',
+  'GET /company/:profileId': 'CompanyController.getCompany',
+
+  'PUT /employee': 'EmployeeController.createEmployee',
+  'GET /employee/:employeeId': 'EmployeeController.getEmployee',
+
+  'POST /advert': 'AdvertController.getAdverts',
+  'PUT /advert': 'AdvertController.createAdvert',
+  'GET /advert/:advertId': 'AdvertController.getAdvert',
+
   'POST /signIn': 'AuthorizationController.signIn',
-  'POST /signOut': 'AuthorizationController.signOut'
+  'POST /signOut': 'AuthorizationController.signOut',
+
+  'PUT /image': 'ImageController.uploadImage',
+
+  'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail',
+
+  'GET /skill': 'SkillController.getSkills'
 
   /***************************************************************************
   *                                                                          *

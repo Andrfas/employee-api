@@ -1,9 +1,13 @@
 var db = require('../../libs/mongoose.js');
 var CommonFunctions = require('../../api/services/CommonFunctions.js');
-
+var requestsDB = require('../../api/services/requestsDB.js');
 
 module.exports = {
-    createCredentials: function(obj, callback){
+    createCredentials: createCredentials,
+    confirmEmail: confirmEmail
+}
+
+function createCredentials (obj, callback){
         var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCredentials, obj);
         if(reqFieldsPresent !== true) {
             return callback({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
@@ -17,6 +21,24 @@ module.exports = {
             callback(null, res)
         })
     }
+
+function confirmEmail(req, res){
+    var toFind = {
+        client_type: req.param('clientType'),
+        client_id: req.param('clientId')
+    }
+    var toUpd = {
+        $set:{status: 'notActivated'} 
+    }
+    var options = { multi: true };
+    requestsDB.update('Credentials', toFind, toUpd, { multi: true },  function(err,result){
+        if (err){
+            return res.redirect('500');
+        } else if(result.nModified !== 1) {
+            return res.redirect('500');
+        }
+            return res.redirect('/#/confirmed')            
+        })
 }
 
 var reqFields = {

@@ -6,30 +6,42 @@ var _ = require('lodash');
 var async = require('async');
 
 module.exports = {
-    createCompany: createCompany
+    createCompany: createCompany,
+    getCompany: getCompany
 }
 
 
 function createCompany(req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
-        return res.json({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
+        return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
     }
 
     var company = _.cloneDeep(req.body)
     delete company.email 
     delete company.password
     async.auto({
-        createCompany: function(callback) {
+        checkIfEmail: function (callback){
+            requestsDB.findOne('Credentials', {email: req.body.email}, function(err,response){
+                if (err) {
+                    return callback({msg:'[CompanyController checkIfEmail] '+err.msg})
+                }
+                if (response != null){
+                    return callback({msg: '[CompanyController checkIfEmail] email already exists'})
+                }
+                callback();
+            })
+        },
+        createCompany: ['checkIfEmail', function(callback) {
             requestsDB.create('Company', company, function(err,response){
                 if (err) {
                     return callback({msg:'[CompanyController createCompany] '+err.msg})
                 }
             callback(null, response);
             })
-        },
+        }],
         sendEmail: ['createCompany', function(callback, data) {
-            mailingCntrl.sendCompanyConfirm(data.createCompany._id, req.body.email, function(err, response){
+            mailingCntrl.sendConfirmLetter('company', data.createCompany._id, req.body.email, function(err, response){
                 if(err) {
                     return callback({msg:'[CompanyController createCompany sendEmail] '+err.msg})
                 }
@@ -57,6 +69,23 @@ function createCompany(req, res) {
         }
         return res.ok({status: 200});
     });
+
+}
+
+function getCompany(req, res) {
+    if(!req.params.profileId) {
+        return res.json({success:false, msg: 'Profile id is not specified'})
+    }
+
+    requestsDB.findOne('Company', {'_id': req.params.profileId}, function(err,response){
+        if (err) {
+            return res.json({success: false, msg:'[CompanyController getCompany] '+err.msg})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No company found with specified id'})
+        }
+        return res.json({success:true, data:response});
+    })
 
 }
 

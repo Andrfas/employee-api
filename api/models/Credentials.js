@@ -10,7 +10,7 @@ module.exports = function(mongoose) {
 		client_type   : { type: String, enum:['company', 'employee'], required : true },
 		client_id     : { type: String, required : true },
 		last_activity : { type: Date },
-		status : { type:String, enum:['confirmed', 'notConfirmed'], required : true }
+		status 		  : { type: String, enum:['notConfirmed', 'notActivated', 'activated'], required : true, default: 'notConfirmed'}
 	 
 	})
 
