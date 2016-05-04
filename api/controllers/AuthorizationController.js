@@ -94,7 +94,7 @@ function signOut(req, res){
         if (err) {
             return res.json({success:false, data:{status:500, msg:'Error while updating credentials document'}})
         }
-        res.ok({success:true, data:{status:200}})
+        return res.ok({success:true, data:{status:200}})
     })
 }
 

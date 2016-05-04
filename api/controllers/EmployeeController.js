@@ -74,6 +74,7 @@ function createEmployee (req, res) {
         }]
     }, function  (err, response) {
     	if(err) {
+            sails.log.error(err);
             return res.json(err);
         }
         return res.json({success:true, status: 200});

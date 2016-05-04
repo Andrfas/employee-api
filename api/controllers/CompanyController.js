@@ -79,6 +79,7 @@ function getCompany(req, res) {
 
     requestsDB.findOne('Company', {'_id': req.params.profileId}, function(err,response){
         if (err) {
+            sails.log.error(err);
             return res.json({success: false, msg:'[CompanyController getCompany] '+err.msg})
         }
         if (response === null){

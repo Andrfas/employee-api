@@ -4,7 +4,8 @@ var requestsDB = require('../../api/services/requestsDB.js');
 
 module.exports = {
     createCredentials: createCredentials,
-    confirmEmail: confirmEmail
+    confirmEmail: confirmEmail,
+    getCredentialsByToken: getCredentialsByToken
 }
 
 function createCredentials (obj, callback){
@@ -23,6 +24,11 @@ function createCredentials (obj, callback){
     }
 
 function confirmEmail(req, res){
+
+    if (!req.param('clientType') || !req.param('clientId')) {
+        return res.badRequest({message: 'clientType, clientId param is required.'});
+    }
+
     var toFind = {
         client_type: req.param('clientType'),
         client_id: req.param('clientId')
@@ -39,6 +45,16 @@ function confirmEmail(req, res){
         }
             return res.redirect('/#/confirmed')            
         })
+}
+
+// not tested functionality
+function getCredentialsByToken (token) {
+    requestsDB.findOne('Credentials', {'token': token}, function(err,response){
+        if (err || response == null) {
+            return null;
+        }
+        return response;
+    })
 }
 
 var reqFields = {

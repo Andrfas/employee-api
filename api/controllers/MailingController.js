@@ -11,14 +11,16 @@ module.exports = {
 
 function sendConfirmLetter(user, userId, emailTo, cb) {
     var email = {
-        to:       emailTo,
+        to:       emailTo || '',
         from:     mailingParams.mailFrom,
         subject:  "Account activation",
         text:     "Confirm account activation "+mailingParams[user]+userId
     };
 
     sendgrid.send(email, function(err, res) {
-        if (err) { return cb(err) }
+        if (err) { 
+            return cb(err)
+        }
         return cb(null, res);
     });
 }

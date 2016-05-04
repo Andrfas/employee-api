@@ -13,6 +13,7 @@ module.exports = {
 function createAdvert (req, res) {
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createAdvert, req.body);
     if(reqFieldsPresent !== true) {
+        sails.log.error({status:1, msg:reqFieldsPresent+' is missing'});
         return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
     }
 
@@ -42,6 +43,7 @@ function createAdvert (req, res) {
                 })
             }, function(err) {
                 if(err) {
+                    sails.log.error(err);
                     return cb(err);
                 }
                 cb(null);
@@ -49,7 +51,7 @@ function createAdvert (req, res) {
         }],
         setSkillsArr: function(cb) {
             var skills = [];
-            for (var i = 0; i < advert.skills.length; i++) {
+            for (var i = 0, x = advert.skills.length; i < x; i++) {
                 skills.push(advert.skills[i].name);
             };
             advert.skills = skills;
@@ -61,6 +63,7 @@ function createAdvert (req, res) {
             }
             requestsDB.findOne('Company', findCriteria, function(err,response){
                 if (err) {
+                    sails.log.error(err);
                     return res.json({success:false, data:{status:500, msg:'Error while finding company document'}})
                 }
                 if (response === null) {
@@ -74,6 +77,7 @@ function createAdvert (req, res) {
             advert.companyName = results.getCompanyInfo.name;
             requestsDB.create('Advert', advert, function(err,response) {
                 if (err) {
+                    sails.log.error(err);
                     return res.json({success:false, data:{status:500, msg:'Error while creating company document'}})
                 }
                 if (response === null) {
@@ -124,7 +128,7 @@ function getAdverts(req, res) {
             res.json({success:false, msg:'[requestsDB service] find error'})
             return;
         }
-        res.json({success:true, data:response})
+        return res.json({success:true, data:response})
     })
 }
 
