@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
 		secondName : { type: String },
 		lastName : { type: String, required : true },
 		languages : { type: Array },
-		availability : { type: Boolean },
+		availability : { type: Boolean, default: true },
 		skills : 
 			[{name: {type: String},
 			description: {type: String}}]
