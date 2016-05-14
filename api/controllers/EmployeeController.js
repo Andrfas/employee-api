@@ -104,13 +104,18 @@ var Fields = {
             'firstName',
             'lastName',
             'email',
-            'password'
+            'password',
+            'birthDate',
+            'currentCity',
+            'availability'
         ],
         required: [
             'firstName',
             'lastName',
             'email',
-            'password'
+            'password',
+            'birthDate',
+            'currentCity'
         ]
     }
 }

@@ -14,8 +14,9 @@ module.exports = function(mongoose) {
 		portfolio : { type: Array },
 		adverts : { type: Array },
 		contacts : { type: String },
-		achievements : { type: Array }
-	 
+		achievements : { type: Array },
+		birthDate: {type: String},
+		currentCity : {type: String}
 	})
  
 return mongoose.model('employee', schema)

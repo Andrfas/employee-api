@@ -41,6 +41,7 @@ module.exports.routes = {
 
   'PUT /employee': 'EmployeeController.createEmployee',
   'GET /employee/:employeeId': 'EmployeeController.getEmployee',
+  'PATCH /employee/:employeeId' : 'EmployeeController.editEmployee',
 
   'POST /advert': 'AdvertController.getAdverts',
   'PUT /advert': 'AdvertController.createAdvert',
