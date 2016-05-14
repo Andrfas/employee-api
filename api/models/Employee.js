@@ -25,10 +25,18 @@ module.exports = function(mongoose) {
 			yearsFrom: {type: Date},
 			yearsTo: {type: Date}
 		}],
-		portfolio : { type: Array },
+		portfolio : [{ 
+			title: {type: String},
+			description: {type: String} 
+		}],
 		adverts : { type: Array },
 		contacts : { type: String },
-		achievements : { type: Array },
+		achievements : [{ 
+			title: {type: String},
+			degree: {type:String},
+			yearsFrom: {type: Date},
+			yearsTo: {type: Date}
+		}],
 		birthDate: {type: String},
 		currentCity : {type: String}
 	})

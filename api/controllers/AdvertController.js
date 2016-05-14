@@ -35,13 +35,12 @@ function createAdvert (req, res) {
                 return cb(null);
             }
             async.each(data.getNewSkills, function(skill, callb) {
-                requestsDB.findOne('Skill', {name: skill}, function (err, skill) {
-                    if (skill === null) {
+                requestsDB.findOne('Skill', {name: skill}, function (err, skillObj) {
+                    if (skillObj === null) {
                         requestsDB.create('Skill', {name: skill}, function(err, response) {
                             if (err) {
                                 return callb(err);
                             }
-                            return callb();
                         })
                     }
                     return callb();

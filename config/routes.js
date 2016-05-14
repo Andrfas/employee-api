@@ -52,6 +52,7 @@ module.exports.routes = {
   'POST /signOut': 'AuthorizationController.signOut',
 
   'PUT /image': 'ImageController.uploadImage',
+  'GET /image/:imageName': 'ImageController.downloadImage',
 
   'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail',
 
