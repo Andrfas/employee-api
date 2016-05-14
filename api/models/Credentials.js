@@ -5,7 +5,8 @@ module.exports = function(mongoose) {
 	var credentialsSchema = new mongoose.Schema({
 	 
 		email         : { type: String, unique : true, required : true },
-		password	  : { type: String, required : true },
+		password	  : { type: String },
+		fb_user_id	  : { type: String, required : false},
 		token         : { type: String },
 		client_type   : { type: String, enum:['company', 'employee'], required : true },
 		client_id     : { type: String, required : true },

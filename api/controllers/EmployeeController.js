@@ -24,6 +24,13 @@ module.exports = {
 function createEmployee (req, res) {
     var fields = _.pick(req.body, Fields.createEmployee.allowed);
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(Fields.createEmployee.required, fields);
+    if(reqFieldsPresent) {
+        if(typeof fields.fbId !== 'undefined') {
+            if(typeof fields.password === 'undefined') {
+                reqFieldsPresent = false;
+            }
+        }
+    }
     if(reqFieldsPresent !== true) {
         return res.json({success:false, msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
     }
@@ -65,12 +72,16 @@ function createEmployee (req, res) {
                 client_type: 'employee',
                 client_id: data.createEmployee._id,
                 email: fields.email,
-                password: fields.password,
                 status: 'notConfirmed'
+            }
+            if(typeof fields.fbId !== 'undefined') {
+                credentials['fb_user_id'] = fields.fbId;
+            } else {
+                credentials['password'] = fields.password;
             }
             credentialsCntrl.createCredentials(credentials, function(err, response){
                 if (err) {
-                    return callback({success:false, msg:'[CompanyController createCompany createCredentials] '+err})
+                    return callback({success:false, msg:'[employeeCtrl createEmployee createCredentials] ', err:err})
                 }
                 return callback(null, data.createCompany)
             })
@@ -108,8 +119,28 @@ function getEmployees (req, res) {
     var count = fields.count;
     delete fields.page;
     delete fields.count;
+    console.log(fields)
+    var reqObj = {};
+    if (fields.availability.yes && !fields.availability.no){
+        reqObj.availability = true
+    } else if (!fields.availability.yes && fields.availability.no){
+        reqObj.availability = false
+    }
 
-    db['Employee'].find({}).skip((page-1)*count).limit(count).exec(function(err, response){
+    if (fields.selectedCities.length > 0){
+        reqObj.currentCity = {}; 
+        reqObj.currentCity['$in'] = fields.selectedCities
+    } 
+    if (fields.selectedSkills.length > 0){
+        reqObj.skills = {}; 
+        reqObj.skills['$elemMatch'] = {}; 
+        reqObj.skills['$elemMatch'].name = fields.selectedSkills
+    } 
+    if (fields.selectedLanguages.length > 0){
+        reqObj.languages = {}; 
+        reqObj.languages['$in'] = fields.selectedLanguages
+    } 
+    db['Employee'].find(reqObj).skip((page-1)*count).limit(count).exec(function(err, response){
         if (err) {
             res.json({success:false, msg:'[Employee] find error'})
             return;
@@ -163,30 +194,28 @@ var Fields = {
             'email',
             'password',
             'birthDate',
+            'fbId',
             'currentCity',
-            'availability'
+            'availability',
+            'languages',
+            'image'
         ],
         required: [
             'firstName',
             'lastName',
             'email',
-            'password',
             'birthDate',
-            'currentCity'
+            // 'currentCity'
         ]
     },
     getEmployees: {
         allowed: [
             'count',
             'page',
-            'company',
-            'subcategory',
-            'hoursPerWeek',
-            'paid',
-            'needPay',
-            'emplType',
-            'cities',
-            'skills'
+            'availability',
+            'selectedCities',
+            'selectedSkills',
+            'selectedLanguages'
         ],
         required: [
             'count',
