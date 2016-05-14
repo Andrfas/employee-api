@@ -185,7 +185,8 @@ var Fields = {
             'birthDate',
             'currentCity',
             'availability',
-            'languages'
+            'languages',
+            'image'
         ],
         required: [
             'firstName',
