@@ -127,6 +127,7 @@ function getAdverts(req, res) {
                 }
         }
     })
+
     db['Advert'].find(fields).skip((page-1)*count).limit(count).exec(function(err, response){
         if (err) {
             res.json({success:false, msg:'[requestsDB service] find error'})
