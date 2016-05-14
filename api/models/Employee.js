@@ -9,7 +9,7 @@ module.exports = function(mongoose) {
 		languages : { type: Array },
 		availability : { type: Boolean },
 		skills : 
-			[{title: {type: String},
+			[{name: {type: String},
 			description: {type: String}}]
 		,
 		education : [{ 
