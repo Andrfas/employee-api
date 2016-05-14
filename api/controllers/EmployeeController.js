@@ -6,6 +6,7 @@
  */
 
 var db = require('../../libs/mongoose.js');
+var mongoose = require('mongoose');
 var CommonFunctions = require('../../api/services/CommonFunctions.js');
 var _ = require('lodash');
 var async = require('async');
@@ -117,20 +118,40 @@ function getEmployees (req, res) {
     })
 }
 
+
 function editEmployee (req, res){
     if(!req.params.employeeId) {
         return res.json({success:false, msg: 'Employee id is not specified'})
     }
-    requestsDB.update('Employee', {'_id': req.params.employeeId}, req.body, function(err, response){
+    console.log(req.body);
+    requestsDB.findOne('Employee', {'_id': req.params.employeeId}, function(err,response){
         if (err) {
             return res.json({success: false, msg:'No employees found with specified id'})
         }
         if (response === null){
             return res.json({success: false, msg: 'No employees found with specified id'})
         }
-        return res.json({success: true, data: response})
-
+        for (var i in req.body){
+            response[i] = req.body[i]
+        }
+        response.save(function(err, res){
+            console.log(err)
+            console.log(res)
+        })
+        return res.json({success:true, data:response});
     })
+    // requestsDB.update('Employee', {'_id': req.params.employeeId}, req.body, function(err, response){
+    //     console.log(response)
+    //     if (err) {
+    //         return res.json({success: false, msg:'No employees found with specified id'})
+    //     }
+    //     if (response === null){
+    //         return res.json({success: false, msg: 'No employees found with specified id'})
+    //     }
+        
+    //     return res.json({success: true, data: response})
+
+    // })
 }
 
 
