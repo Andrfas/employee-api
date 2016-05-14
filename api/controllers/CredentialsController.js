@@ -14,7 +14,6 @@ function createCredentials (obj, callback){
             return callback({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
         }
         var dbModel = new db.Credentials(obj);
-        console.log('credPass', dbModel);
         if(typeof dbModel.password !== 'undefined') {
             dbModel.password = dbModel.getCrypted(obj.password);
         }

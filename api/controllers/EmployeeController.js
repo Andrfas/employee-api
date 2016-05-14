@@ -74,7 +74,6 @@ function createEmployee (req, res) {
                 email: fields.email,
                 status: 'notConfirmed'
             }
-            console.log('employee', fields);
             if(typeof fields.fbId !== 'undefined') {
                 credentials['fb_user_id'] = fields.fbId;
             } else {
