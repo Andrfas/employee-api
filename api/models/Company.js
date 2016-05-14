@@ -5,8 +5,8 @@ module.exports = function(mongoose) {
 	 
 		name          : { type: String, required : true },
 		description   : { type: String, required : true },
+		website		  : { type: String, required : true },
 		image         : { type: String },
-		site          : { type: String },
 		cities        : { type: Array }
 	 
 	})
