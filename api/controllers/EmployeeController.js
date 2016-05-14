@@ -16,7 +16,8 @@ var mailingCntrl = require('../../api/controllers/MailingController.js');
 module.exports = {
 	createEmployee: createEmployee,
     getEmployee: getEmployee,
-    getEmployees: getEmployees
+    getEmployees: getEmployees,
+    editEmployee: editEmployee
 }
 
 function createEmployee (req, res) {
@@ -98,6 +99,7 @@ function getEmployee (req, res) {
     })
 }
 
+
 function getEmployees (req, res) {
 
     requestsDB.find('Employee', {}, function(err,response){
@@ -111,6 +113,22 @@ function getEmployees (req, res) {
     })
 }
 
+function editEmployee (req, res){
+    if(!req.params.employeeId) {
+        return res.json({success:false, msg: 'Employee id is not specified'})
+    }
+    requestsDB.update('Employee', {'_id': req.params.employeeId}, req.body, function(err, response){
+        if (err) {
+            return res.json({success: false, msg:'No employees found with specified id'})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No employees found with specified id'})
+        }
+        return res.json({success: true, data: response})
+
+    })
+}
+
 
 var Fields = {
     createEmployee: {
@@ -118,13 +136,18 @@ var Fields = {
             'firstName',
             'lastName',
             'email',
-            'password'
+            'password',
+            'birthDate',
+            'currentCity',
+            'availability'
         ],
         required: [
             'firstName',
             'lastName',
             'email',
-            'password'
+            'password',
+            'birthDate',
+            'currentCity'
         ]
     }
 }

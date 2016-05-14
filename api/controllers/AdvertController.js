@@ -137,15 +137,46 @@ function getAdvert (req, res) {
         return res.json({success:false, msg: 'Advert id is not specified'})
     }
 
-    requestsDB.findOne('Advert', {'_id': req.params.advertId}, function(err,response){
+    async.waterfall([
+        function (callback) {
+            requestsDB.findOne('Advert', {'_id': req.params.advertId}, function(err, response) {
+                if (err) {
+                    return callback(err);
+                }
+                sails.log(response);
+                if (response === null){
+                    return callback({msg: 'No adverts found with specified id'});
+                }
+                    sails.log(response);
+                callback(null, response);
+            })
+        },
+        function (data, callback) {
+            if (data.company) {
+                requestsDB.findOne('Company', {'_id': data.company}, function (err, company) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    if (company === null) {
+                        return callback({ msg: 'No company found with specified id'});
+                    }
+                    var newData = JSON.parse(JSON.stringify(data));
+                    newData['company'] = company;
+                    callback(null, newData);
+                });
+            }
+        }],
+    function (err, data) {
         if (err) {
-            return res.json({success: false, msg:'No adverts found with specified id'})
+            return res.badRequest(err);
         }
-        if (response === null){
-            return res.json({success: false, msg: 'No adverts found with specified id'})
+
+        if (data === null) {
+            return res.badRequest({message: 'data is null, check getAdvert'});
         }
-        return res.json({success:true, data:response});
-    })
+        sails.log(data)
+        res.json({success: true, data: data});
+    });
 }
 
 // fields, that are required for request. Should be for each function, and should have the same name
