@@ -184,7 +184,8 @@ var Fields = {
             'password',
             'birthDate',
             'currentCity',
-            'availability'
+            'availability',
+            'languages'
         ],
         required: [
             'firstName',
