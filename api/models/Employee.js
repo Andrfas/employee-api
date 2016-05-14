@@ -6,12 +6,13 @@ module.exports = function(mongoose) {
 		firstName : { type: String, required : true },
 		secondName : { type: String },
 		lastName : { type: String, required : true },
-		languages : { type: Array },
-		availability : { type: Boolean },
-		skills : [{
-			name: {type: String},
-			description: {type: String}
-		}],
+		languages : [{name: {type: String},
+			level: {type: String}}],
+		availability : { type: Boolean, default: true },
+		skills : 
+			[{name: {type: String},
+			description: {type: String}}]
+		,
 		education : [{ 
 			uni: {type: String},
 			faculty: {type:String},
@@ -38,7 +39,8 @@ module.exports = function(mongoose) {
 			yearsTo: {type: Date}
 		}],
 		birthDate: {type: String},
-		currentCity : {type: String}
+		currentCity : {type: String},
+		image : { type: String }
 	})
  
 return mongoose.model('employee', schema)
