@@ -19,6 +19,17 @@ module.exports = {
 
             res.json({status:200,file:filesUploaded});
         });
+    },
+    downloadImage: function(req, res){
+        var blobAdapter = skipper({
+            uri: 'mongodb://localhost:27017/employeeDB.images'
+        });
+
+        blobAdapter.read(req.param('imageName'), function(err, file) {
+            console.log('image', file);
+            res.contentType('image/png');
+            res.send(new Buffer(file));
+        })
     }
 }
 
