@@ -75,22 +75,22 @@ function createAdvert (req, res) {
         },
         createAdvert: ['setSkillsArr','getCompanyInfo', function(cb, results) {
             advert.companyName = results.getCompanyInfo.name;
-            requestsDB.create('Advert', advert, function(err,response) {
+            requestsDB.create('Advert', advert, function(err, advert) {
                 if (err) {
                     sails.log.error(err);
-                    return res.json({success:false, data:{status:500, msg:'Error while creating company document'}})
+                    return res.json({success:false, data:{status:500, msg:'Error while creating advert document'}})
                 }
-                if (response === null) {
-                    return res.json({success:false, data:{status:1, msg:'Company not created'}})
+                if (advert === null) {
+                    return res.json({success:false, data:{status:1, msg:'Advert not created'}})
                 }
-                cb();
+                cb(null, advert);
             })
         }]
     }, function(err, data) {
         if(err) {
             return res.json({success:false, msg: err})
         }
-        return res.json({success:true})
+        return res.json({success:true, advertId: data.createAdvert.id})
     })   
 }
 
