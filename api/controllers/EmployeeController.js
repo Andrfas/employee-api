@@ -15,7 +15,8 @@ var mailingCntrl = require('../../api/controllers/MailingController.js');
 
 module.exports = {
 	createEmployee: createEmployee,
-    getEmployee: getEmployee
+    getEmployee: getEmployee,
+    getEmployees: getEmployees
 }
 
 function createEmployee (req, res) {
@@ -92,6 +93,19 @@ function getEmployee (req, res) {
         }
         if (response === null){
             return res.json({success: false, msg: 'No employees found with specified id'})
+        }
+        return res.json({success:true, data:response});
+    })
+}
+
+function getEmployees (req, res) {
+
+    requestsDB.find('Employee', {}, function(err,response){
+        if (err) {
+            return res.json({success: false, msg:'No employees found'})
+        }
+        if (response === null){
+            return res.json({success: false, msg: 'No employees found'})
         }
         return res.json({success:true, data:response});
     })
