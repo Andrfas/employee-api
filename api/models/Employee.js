@@ -38,7 +38,8 @@ module.exports = function(mongoose) {
 			yearsTo: {type: Date}
 		}],
 		birthDate: {type: String},
-		currentCity : {type: String}
+		currentCity : {type: String},
+		image : { type: String }
 	})
  
 return mongoose.model('employee', schema)

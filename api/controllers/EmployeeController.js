@@ -164,7 +164,8 @@ var Fields = {
             'password',
             'birthDate',
             'currentCity',
-            'availability'
+            'availability',
+            'image'
         ],
         required: [
             'firstName',

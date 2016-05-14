@@ -12,8 +12,6 @@ module.exports = {
 
 
 function createCompany(req, res) {
-    console.log('req.body')
-    console.log('--------------')
     console.log(req.body)
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
