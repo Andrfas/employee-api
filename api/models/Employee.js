@@ -27,7 +27,8 @@ module.exports = function(mongoose) {
 		}],
 		portfolio : [{ 
 			title: {type: String},
-			description: {type: String} 
+			description: {type: String},
+			image : { type: String }
 		}],
 		adverts : { type: Array },
 		contacts : { type: String },
