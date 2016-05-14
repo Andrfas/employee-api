@@ -12,6 +12,9 @@ module.exports = {
 
 
 function createCompany(req, res) {
+    console.log('req.body')
+    console.log('--------------')
+    console.log(req.body)
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
         return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
@@ -23,6 +26,8 @@ function createCompany(req, res) {
     async.auto({
         checkIfEmail: function (callback){
             requestsDB.findOne('Credentials', {email: req.body.email}, function(err,response){
+                console.log('response')
+                console.log(response)
                 if (err) {
                     return callback({msg:'[CompanyController checkIfEmail] '+err.msg})
                 }
@@ -33,6 +38,7 @@ function createCompany(req, res) {
             })
         },
         createCompany: ['checkIfEmail', function(callback) {
+            console.log('here')
             requestsDB.create('Company', company, function(err,response){
                 if (err) {
                     return callback({msg:'[CompanyController createCompany] '+err.msg})

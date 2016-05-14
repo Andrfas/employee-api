@@ -5,6 +5,7 @@ module.exports = {
     create: function(model, obj, callback) {
     	db[model].create(obj, function(err, res){
     		if (err) {
+                console.log(err)
     			callback({msg:'[requestsDB service] create error'})
     			return;
     		}
