@@ -24,6 +24,13 @@ module.exports = {
 function createEmployee (req, res) {
     var fields = _.pick(req.body, Fields.createEmployee.allowed);
 	var reqFieldsPresent = CommonFunctions.areKeysInObj(Fields.createEmployee.required, fields);
+    if(reqFieldsPresent) {
+        if(typeof fields.fbId !== 'undefined') {
+            if(typeof fields.password === 'undefined') {
+                reqFieldsPresent = false;
+            }
+        }
+    }
     if(reqFieldsPresent !== true) {
         return res.json({success:false, msg:'[EmployeeController createEmployee] Missed required field: '+reqFieldsPresent})
     }
@@ -65,12 +72,17 @@ function createEmployee (req, res) {
                 client_type: 'employee',
                 client_id: data.createEmployee._id,
                 email: fields.email,
-                password: fields.password,
                 status: 'notConfirmed'
+            }
+            console.log('employee', fields);
+            if(typeof fields.fbId !== 'undefined') {
+                credentials['fb_user_id'] = fields.fbId;
+            } else {
+                credentials['password'] = fields.password;
             }
             credentialsCntrl.createCredentials(credentials, function(err, response){
                 if (err) {
-                    return callback({success:false, msg:'[CompanyController createCompany createCredentials] '+err})
+                    return callback({success:false, msg:'[employeeCtrl createEmployee createCredentials] ', err:err})
                 }
                 return callback(null, data.createCompany)
             })
@@ -183,17 +195,18 @@ var Fields = {
             'email',
             'password',
             'birthDate',
+            'fbId',
             'currentCity',
             'availability',
+            'languages',
             'image'
         ],
         required: [
             'firstName',
             'lastName',
             'email',
-            'password',
             'birthDate',
-            'currentCity'
+            // 'currentCity'
         ]
     },
     getEmployees: {
