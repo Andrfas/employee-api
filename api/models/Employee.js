@@ -8,15 +8,23 @@ module.exports = function(mongoose) {
 		lastName : { type: String, required : true },
 		languages : { type: Array },
 		availability : { type: Boolean },
-		skills : { type: Array },
+		skills : { 
+			title: {type: Array},
+			description: {type: Array}
+		},
 		education : { 
 			uni: {type: Array},
 			faculty: {type:Array},
 			degree: {type:Array},
 			yearsFrom: {type: Array},
-			yearsTo: {type: Array},
+			yearsTo: {type: Array}
 		},
-		workExperience : { type: Array },
+		workExperience : { 
+			title: {type: Array},
+			degree: {type:Array},
+			yearsFrom: {type: Array},
+			yearsTo: {type: Array}
+		},
 		portfolio : { type: Array },
 		adverts : { type: Array },
 		contacts : { type: String },
