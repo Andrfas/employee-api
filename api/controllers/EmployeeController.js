@@ -101,15 +101,19 @@ function getEmployee (req, res) {
 
 
 function getEmployees (req, res) {
+    var fields = _.pick(req.body, Fields.getEmployees.allowed);
 
-    requestsDB.find('Employee', {}, function(err,response){
+    var page = fields.page;
+    var count = fields.count;
+    delete fields.page;
+    delete fields.count;
+
+    db['Employee'].find({}).skip((page-1)*count).limit(count).exec(function(err, response){
         if (err) {
-            return res.json({success: false, msg:'No employees found'})
+            res.json({success:false, msg:'[Employee] find error'})
+            return;
         }
-        if (response === null){
-            return res.json({success: false, msg: 'No employees found'})
-        }
-        return res.json({success:true, data:response});
+        return res.json({success:true, data:response})
     })
 }
 
@@ -148,6 +152,24 @@ var Fields = {
             'password',
             'birthDate',
             'currentCity'
+        ]
+    },
+    getEmployees: {
+        allowed: [
+            'count',
+            'page',
+            'company',
+            'subcategory',
+            'hoursPerWeek',
+            'paid',
+            'needPay',
+            'emplType',
+            'cities',
+            'skills'
+        ],
+        required: [
+            'count',
+            'page'
         ]
     }
 }
