@@ -33,7 +33,7 @@ module.exports = function(mongoose) {
 		contacts : { type: String },
 		achievements : [{ 
 			title: {type: String},
-			degree: {type:String},
+			description: {type:String},
 			yearsFrom: {type: Date},
 			yearsTo: {type: Date}
 		}],
