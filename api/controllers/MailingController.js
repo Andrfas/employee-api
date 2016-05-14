@@ -1,10 +1,10 @@
+var sendgridAuth = require('../../config/authData/sendgrid.js')
 var mailingParams = {
     company: "http://localhost:1337/confirm/company/",
     employee: "http://localhost:1337/confirm/employee/",
     mailFrom: 'noreply@employee.com.ua'
 }
-var sendgrid = require("sendgrid")("andrfas", "andrfas5972");
-
+var sendgrid = require("sendgrid")(sendgridAuth.username, sendgridAuth.password);
 module.exports = {
     sendConfirmLetter: sendConfirmLetter
 }
