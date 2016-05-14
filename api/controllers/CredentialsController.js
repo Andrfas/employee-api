@@ -13,8 +13,11 @@ function createCredentials (obj, callback){
         if(reqFieldsPresent !== true) {
             return callback({msg:'[CompanyController createCompany] Missed required field: '+reqFieldsPresent})
         }
-        var dbModel = new db.Credentials(obj)
-        dbModel.password = dbModel.getCrypted(obj.password)
+        var dbModel = new db.Credentials(obj);
+        console.log('credPass', dbModel);
+        if(typeof dbModel.password !== 'undefined') {
+            dbModel.password = dbModel.getCrypted(obj.password);
+        }
         dbModel.save(function(err, res){
             if (err || res === null) {
                 return callback({msg:'[CredentialsCntrl createCredentials] creating error: '+ err})
@@ -62,7 +65,6 @@ var reqFields = {
         'client_type',
         'client_id',
         'email',
-        'password',
         'status'
     ]
 }
