@@ -27,7 +27,7 @@ function createApply (req, res) {
     function(err, result){
     	if (result !== null) return res.json({message: "You have already applied for this job"});
     	if (err) return res.badRequest(err);
-    	requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter')}, function(err, response) {
+    	requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter'), companyName: req.param('companyName')}, function(err, response) {
 		    if (err) {
 		        return res.badRequest(err);
 		    }
