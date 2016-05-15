@@ -152,7 +152,13 @@ function getAdvert (req, res) {
                 if (response === null){
                     return callback({msg: 'No adverts found with specified id'});
                 }
-                    sails.log(response);
+                sails.log(response);
+                if (!response.viewedNumber){
+                    response.viewedNumber = 1;
+                } else {
+                    response.viewedNumber++;
+                }
+                response.save()
                 callback(null, response);
             })
         },

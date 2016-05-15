@@ -19,7 +19,7 @@ module.exports = function(mongoose) {
 		emplType         : { type: String, enum:['fulltime', 'underemployment', 'distant_work'] },
 		dateSelEnd         : { type: String },
 		submitted         : { type: String },
-	 
+	 	viewedNumber	  : { type:Number, default:0}
 	})
  
 return mongoose.model('adverts', schema)
