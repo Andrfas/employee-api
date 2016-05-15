@@ -7,6 +7,6 @@ module.exports = function(mongoose) {
 		letter: {type: String} 	
 	})
  
-return mongoose.model('message', schema)
+return mongoose.model('messages', schema)
  
 }
