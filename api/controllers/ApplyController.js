@@ -21,20 +21,16 @@ function createApply (req, res) {
 }
 
 function getApplicatns (req, res) {
-	sails.log(1);
 	if (!req.params.advertId )
         return res.badRequest({message: 'proposal_id param is undefined'});
     var employies = [];
 
     async.waterfall([
     	function (callback) {
-    		sails.log(2);
     		requestsDB.find('Messages', {proposal_id: req.params.advertId}, function (err, found) {
 		    	if (err) {
 		    		callback(err);
 		    	}
-		    	sails.log('found');
-		    	sails.log(found);
 		    	callback(null, found);
     		});
     	},
