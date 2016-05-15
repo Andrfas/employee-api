@@ -4,10 +4,12 @@ var mailingCntrl = require('../../api/controllers/MailingController.js');
 var CommonFunctions = require('../../api/services/CommonFunctions.js');
 var _ = require('lodash');
 var async = require('async');
+var db = require('../../libs/mongoose.js');
 
 module.exports = {
     createCompany: createCompany,
-    getCompany: getCompany
+    getCompany: getCompany,
+    getCompanies: getCompanies
 }
 
 
@@ -94,6 +96,60 @@ function getCompany(req, res) {
 
 }
 
+function getCompanies (req, res) {
+    var fields = _.pick(req.body, reqFields.getCompanies.allowed);
+
+    var page = fields.page;
+    var count = fields.count;
+    delete fields.page;
+    delete fields.count;
+    console.log(fields)
+    var reqObj = {};
+
+    if (fields.cities && fields.cities.length > 0){
+        reqObj.cities = {}; 
+        reqObj.cities['$in'] = fields.cities
+    } 
+    // if (fields.selectedSkills.length > 0){
+    //     reqObj.skills = {}; 
+    //     reqObj.skills['$elemMatch'] = {}; 
+    //     reqObj.skills['$elemMatch'].name = fields.selectedSkills
+    // } 
+    // if (fields.selectedLanguages.length > 0){
+    //     reqObj.languages = {}; 
+    //     reqObj.languages['$in'] = fields.selectedLanguages
+    // } 
+    console.log(reqObj)
+    db['Company'].find(reqObj).skip((page-1)*count).limit(count).exec(function(err, response){
+        if (err) {
+            res.json({success:false, msg:'[Company] find error'})
+            return;
+        }
+        var responseArr = []
+        async.eachLimit(response, 1, function(company, callback) {
+            db['Advert'].find({company: company._id}).exec(function(err, response){
+                responseArr.push(response.length)
+                callback(null)
+            })
+        }, function(err){
+            // console.log(responseArr)
+            var final = []
+            for (var i = 0; i < response.length; i++) {
+                final[i] = {
+                  cities: response[i].cities,
+                  _id: response[i]._id,
+                  description: response[i].description,
+                  website: response[i].website,
+                  name: response[i].name,
+                  activeAdverts: responseArr[i]
+                }
+            }
+            return res.json({success:true, data:final})
+        })
+
+    })
+}
+
 // fields, that are required for request. Should be for each function, and should have the same name
 var reqFields = {
     createCompany: [
@@ -101,6 +157,18 @@ var reqFields = {
         'description',
         'email',
         'password'
-    ]
+    ],
+    getCompanies: {
+        allowed: [
+            'count',
+            'page',
+            'cities',
+            // 'name'
+        ],
+        required: [
+            'count',
+            'page'
+        ]
+    }
 }
 
