@@ -15,9 +15,7 @@ function createApply (req, res) {
 	    if (err) {
 	        return res.badRequest(err);
 	    }
-	    if (response) {
-	    	res.ok();
-	    }
+	    res.json({status:200});
 	})
 }
 
@@ -26,7 +24,7 @@ function getApplicatns (req, res) {
         return res.badRequest({message: 'proposal_id param is undefined'});
 
     //async.waterfall
-    requestsDB.find('Message', {proposal_id: req.param('proposal_id')}, function (err, found) {
+    requestsDB.find('Messages', {proposal_id: req.param('proposal_id')}, function (err, found) {
     	if (err) {
     		res.badRequest(err);
     	}
