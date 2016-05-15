@@ -5,7 +5,8 @@ var async = require('async');
 
 module.exports = {
 	createApply: createApply,
-	getApplicatns: getApplicatns
+	getApplicatns: getApplicatns,
+
 }
 
 function createApply (req, res) {
@@ -20,14 +21,49 @@ function createApply (req, res) {
 }
 
 function getApplicatns (req, res) {
-	if (!req.param('proposal_id') )
+	sails.log(1);
+	if (!req.params.advertId )
         return res.badRequest({message: 'proposal_id param is undefined'});
+    var employies = [];
 
-    //async.waterfall
-    requestsDB.find('Messages', {proposal_id: req.param('proposal_id')}, function (err, found) {
+    async.waterfall([
+    	function (callback) {
+    		sails.log(2);
+    		requestsDB.find('Messages', {proposal_id: req.params.advertId}, function (err, found) {
+		    	if (err) {
+		    		callback(err);
+		    	}
+		    	sails.log('found');
+		    	sails.log(found);
+		    	callback(null, found);
+    		});
+    	},
+    	function (array, callback) {
+    		async.eachLimit(array, 1, function(apply, callb) {
+               
+                requestsDB.findOne('Employee', {'_id':  apply.employee_id}, function(err, response){
+			        if (err) {
+			            return callb(err);
+			        }
+			        employies.push(response);
+			        return callb(null);
+			    })
+          	}, function(err) {
+                if(err) {
+                    sails.log.error(err);
+                    return callback(err);
+                }
+                callback(null, employies);
+            })
+    	}],
+    function (err, arrayOfEmployyes) {
     	if (err) {
-    		res.badRequest(err);
+    		return res.badRequest(err);
     	}
-    	res.ok(found);
+    	sails.log('arrayOfEmployyes');
+    	sails.log(arrayOfEmployyes);
+    	res.json(arrayOfEmployyes);
+
     });
+    
 }
