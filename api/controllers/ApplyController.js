@@ -12,7 +12,9 @@ module.exports = {
 function createApply (req, res) {
 	if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
         return res.badRequest({message: 'employeeId, letter, advertId param is undefined'});
-    requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter')}, function(err, response) {
+    requestsDB.create('Messages', {employee_id: req.param('employeeId'), 
+        proposal_id: req.param('advertId'), letter: req.param('letter'),
+        advertTitle: req.param('advertTitle'), companyName: req.param('companyName')}, function(err, response) {
 	    if (err) {
 	        return res.badRequest(err);
 	    }

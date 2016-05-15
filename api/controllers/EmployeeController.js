@@ -107,7 +107,12 @@ function getEmployee (req, res) {
         if (response === null){
             return res.json({success: false, msg: 'No employees found with specified id'})
         }
-        return res.json({success:true, data:response});
+       requestsDB.find('Messages', {employee_id: req.params.employeeId}, function (err, found) {
+                if (err) {
+                    return console.log(err);
+                }
+                return res.json({success:true, data:response, messages: found});
+            });
     })
 }
 
@@ -169,7 +174,8 @@ function editEmployee (req, res){
             console.log(err)
             console.log(res)
         })
-        return res.json({success:true, data:response});
+                return res.json({success:true, data:response});
+
     })
     // requestsDB.update('Employee', {'_id': req.params.employeeId}, req.body, function(err, response){
     //     console.log(response)
