@@ -14,7 +14,6 @@ module.exports = {
 
 
 function createCompany(req, res) {
-    console.log(req.body)
     var reqFieldsPresent = CommonFunctions.areKeysInObj(reqFields.createCompany, req.body);
     if(reqFieldsPresent !== true) {
         return res.json({success:false, data:{status:1, msg:reqFieldsPresent+' is missing'}})
@@ -103,23 +102,14 @@ function getCompanies (req, res) {
     var count = fields.count;
     delete fields.page;
     delete fields.count;
-    console.log(fields)
+
     var reqObj = {};
 
     if (fields.cities && fields.cities.length > 0){
         reqObj.cities = {}; 
         reqObj.cities['$in'] = fields.cities
     } 
-    // if (fields.selectedSkills.length > 0){
-    //     reqObj.skills = {}; 
-    //     reqObj.skills['$elemMatch'] = {}; 
-    //     reqObj.skills['$elemMatch'].name = fields.selectedSkills
-    // } 
-    // if (fields.selectedLanguages.length > 0){
-    //     reqObj.languages = {}; 
-    //     reqObj.languages['$in'] = fields.selectedLanguages
-    // } 
-    console.log(reqObj)
+
     db['Company'].find(reqObj).skip((page-1)*count).limit(count).exec(function(err, response){
         if (err) {
             res.json({success:false, msg:'[Company] find error'})
@@ -132,7 +122,6 @@ function getCompanies (req, res) {
                 callback(null)
             })
         }, function(err){
-            // console.log(responseArr)
             var final = []
             for (var i = 0; i < response.length; i++) {
                 final[i] = {

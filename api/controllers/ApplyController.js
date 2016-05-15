@@ -11,11 +11,13 @@ module.exports = {
 }
 
 function createApply (req, res) {
+    console.log('req', req.params)
     if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
         return res.badRequest({message: 'employeeId, letter, advertId param is undefined'});
     async.waterfall([
     	function (callback) {
-    		requestsDB.findOne('Messages', {employee_id: req.param('employeeId')}, function(err, found){
+    		requestsDB.findOne('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId')}, function(err, found){
+    			console.log('found', found)
     			if (err){
     				callback(err);
     			}

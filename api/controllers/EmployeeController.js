@@ -41,7 +41,7 @@ function createEmployee (req, res) {
     employee.availability = true;
     async.auto({
     	checkIfEmail: function (callback){
-            requestsDB.findOne('Credentials', {email: fields.email}, function(err,response){
+            requestsDB.findOne('Credentials', {email: fields.email}, function(err,response) {
                 if (err) {
                     return callback({success:false, msg:'[EmployeeController checkIfEmail] '+err.msg})
                 }
@@ -52,7 +52,7 @@ function createEmployee (req, res) {
             })
         },
         createEmployee: ['checkIfEmail', function(callback) {
-            requestsDB.create('Employee', employee, function(err,response){
+            requestsDB.create('Employee', employee, function(err,response) {
                 if (err) {
                     return callback({success:false, msg:'[EmployeeController createEmployee] '+err.msg})
                 }
@@ -79,7 +79,7 @@ function createEmployee (req, res) {
             } else {
                 credentials['password'] = fields.password;
             }
-            credentialsCntrl.createCredentials(credentials, function(err, response){
+            credentialsCntrl.createCredentials(credentials, function(err, response) {
                 if (err) {
                     return callback({success:false, msg:'[employeeCtrl createEmployee createCredentials] ', err:err})
                 }
@@ -100,7 +100,7 @@ function getEmployee (req, res) {
         return res.json({success:false, msg: 'Employee id is not specified'})
     }
 
-    requestsDB.findOne('Employee', {'_id': req.params.employeeId}, function(err,response){
+    requestsDB.findOne('Employee', {'_id': req.params.employeeId}, function(err,response) {
         if (err) {
             return res.json({success: false, msg:'No employees found with specified id'})
         }
@@ -124,11 +124,11 @@ function getEmployees (req, res) {
     var count = fields.count;
     delete fields.page;
     delete fields.count;
-    console.log(fields)
+
     var reqObj = {};
-    if (fields.availability.yes && !fields.availability.no){
+    if (fields.availability.yes && !fields.availability.no) {
         reqObj.availability = true
-    } else if (!fields.availability.yes && fields.availability.no){
+    } else if (!fields.availability.yes && fields.availability.no) {
         reqObj.availability = false
     }
 
@@ -145,7 +145,7 @@ function getEmployees (req, res) {
         reqObj.languages = {}; 
         reqObj.languages['$in'] = fields.selectedLanguages
     } 
-    db['Employee'].find(reqObj).skip((page-1)*count).limit(count).exec(function(err, response){
+    db['Employee'].find(reqObj).skip((page-1)*count).limit(count).exec(function(err, response) {
         if (err) {
             res.json({success:false, msg:'[Employee] find error'})
             return;
@@ -160,7 +160,7 @@ function editEmployee (req, res){
         return res.json({success:false, msg: 'Employee id is not specified'})
     }
     console.log(req.body);
-    requestsDB.findOne('Employee', {'_id': req.params.employeeId}, function(err,response){
+    requestsDB.findOne('Employee', {'_id': req.params.employeeId }, function(err,response) {
         if (err) {
             return res.json({success: false, msg:'No employees found with specified id'})
         }
@@ -170,25 +170,12 @@ function editEmployee (req, res){
         for (var i in req.body){
             response[i] = req.body[i]
         }
-        response.save(function(err, res){
+        response.save(function(err, res) {
             console.log(err)
-            console.log(res)
         })
-                return res.json({success:true, data:response});
+        return res.json({success:true, data:response});
 
     })
-    // requestsDB.update('Employee', {'_id': req.params.employeeId}, req.body, function(err, response){
-    //     console.log(response)
-    //     if (err) {
-    //         return res.json({success: false, msg:'No employees found with specified id'})
-    //     }
-    //     if (response === null){
-    //         return res.json({success: false, msg: 'No employees found with specified id'})
-    //     }
-        
-    //     return res.json({success: true, data: response})
-
-    // })
 }
 
 
