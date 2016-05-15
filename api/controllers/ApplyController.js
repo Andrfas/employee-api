@@ -40,12 +40,18 @@ function getApplicatns (req, res) {
     	},
     	function (array, callback) {
     		async.eachLimit(array, 1, function(apply, callb) {
-               
                 requestsDB.findOne('Employee', {'_id':  apply.employee_id}, function(err, response){
 			        if (err) {
 			            return callb(err);
 			        }
-			        employies.push(response);
+
+			        var obj = {
+			        	_id: response._id,
+			        	firstName: response.firstName,
+			        	lastName: response.lastName,
+			        	letter: apply.letter
+			        }
+			        employies.push(obj);
 			        return callb(null);
 			    })
           	}, function(err) {
@@ -60,8 +66,6 @@ function getApplicatns (req, res) {
     	if (err) {
     		return res.badRequest(err);
     	}
-    	sails.log('arrayOfEmployyes');
-    	sails.log(arrayOfEmployyes);
     	res.json(arrayOfEmployyes);
 
     });
