@@ -48,6 +48,8 @@ module.exports.routes = {
   'PUT /advert': 'AdvertController.createAdvert',
   'GET /advert/:advertId': 'AdvertController.getAdvert',
 
+  'POST /signInFb': 'AuthorizationController.signInFb',
+
   'POST /signIn': 'AuthorizationController.signIn',
   'POST /signOut': 'AuthorizationController.signOut',
 

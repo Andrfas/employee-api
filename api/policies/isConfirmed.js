@@ -30,8 +30,8 @@ module.exports = function(req, res, next) {
             }
         ]);
 
-    } else {
-        return res.json({ success: false, msg: 'No email specified'});
+    } else if(req.body.fb_user_id) {
+        return next();
     }
 
 };
