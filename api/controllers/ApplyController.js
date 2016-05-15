@@ -5,18 +5,30 @@ var async = require('async');
 
 module.exports = {
 	createApply: createApply,
+    changeApplicationStatus: changeApplicationStatus,
 	getApplicatns: getApplicatns,
 
 }
 
 function createApply (req, res) {
-	if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
+    if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
         return res.badRequest({message: 'employeeId, letter, advertId param is undefined'});
     requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter')}, function(err, response) {
+        if (err) {
+            return res.badRequest(err);
+        }
+        res.json({status:200});
+    })
+}
+
+function changeApplicationStatus (req, res) {
+	if (!req.body.applicationId || !req.body.status)
+        return res.badRequest({message: 'applicationId, status param is undefined'});
+    requestsDB.update('Messages', {'_id': req.body.applicationId}, {status: req.body.status}, {}, function(err, response) {
 	    if (err) {
 	        return res.badRequest(err);
 	    }
-	    res.json({status:200});
+	    res.json({data:response});
 	})
 }
 

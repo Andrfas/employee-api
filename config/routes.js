@@ -62,7 +62,8 @@ module.exports.routes = {
   'GET /skill': 'SkillController.getSkills',
 
   'PUT /apply': 'ApplyController.createApply',
-  'GET /applies/:advertId': 'ApplyController.getApplicatns'
+  'GET /applies/:advertId': 'ApplyController.getApplicatns',
+  'PATCH /applies': 'ApplyController.changeApplicationStatus'
 
   /***************************************************************************
   *                                                                          *
