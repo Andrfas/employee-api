@@ -3,6 +3,8 @@ var db = require('../../libs/mongoose.js');
 module.exports = {
     
     create: function(model, obj, callback) {
+        console.log(obj);
+        console.log(model);
     	db[model].create(obj, function(err, res){
     		if (err) {
                 console.log(err)
