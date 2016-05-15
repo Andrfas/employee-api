@@ -28,13 +28,14 @@ module.exports = function(mongoose) {
 		}],
 		portfolio : [{ 
 			title: {type: String},
-			description: {type: String} 
+			description: {type: String},
+			image : { type: String }
 		}],
 		adverts : { type: Array },
 		contacts : { type: String },
 		achievements : [{ 
 			title: {type: String},
-			degree: {type:String},
+			description: {type:String},
 			yearsFrom: {type: Date},
 			yearsTo: {type: Date}
 		}],

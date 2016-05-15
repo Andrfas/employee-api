@@ -4,8 +4,63 @@ var async = require('async')
 var db = require('../../libs/mongoose.js');
 
 module.exports = {
+    signInFb: signInFb,
     signIn: signIn,
     signOut: signOut
+}
+
+function signInFb(req, res) {
+    async.waterfall([
+        function(callback) {
+            var findCriteria = {
+                fb_user_id: req.body.fb_user_id
+            }
+            requestsDB.findOne('Credentials', findCriteria, function(err,response){
+                if (err) {
+                    return res.json({success:false, data:{status:500, msg:'Error while finding credentials document'}})
+                }
+                if (response === null) {
+                    return res.json({success:false, data:{status:1, msg:'Account with such fbId is not found.'}})
+                }
+            callback(null, response, req.body.token);
+            })
+        },
+        function(credentials, token, callback) {
+
+            //TODO valid token via request to fb
+            
+            callback(null, credentials, token);
+        },
+        function(credentials, token, callback) {
+
+            var searchFields = {
+                _id: credentials._id
+            }
+
+            var updateFields = {
+                token: token,
+                last_activity: new Date()
+            }
+
+            requestsDB.update('Credentials', searchFields, updateFields, function(err,response){
+                if (err) {
+                    return res.json({success:false, data:{status:500, msg:'Error while updating credentials document'}})
+                }
+                callback(credentials, token)
+            })
+        }
+    ], function (credentials, token) {
+        return res.json({
+            success:true, 
+            data:{
+                status: 200, 
+                token: token, 
+                client_id: credentials.client_id,
+                client_type: credentials.client_type,
+                client_status: credentials.status
+            }
+        });
+    });
 }
 
 function signIn(req, res){
