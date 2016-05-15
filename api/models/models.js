@@ -5,5 +5,6 @@ module.exports = {
     Employee: require('./Employee.js'),
     Advert: require('./Advert.js'),
     Skill: require('./Skill.js'),
+    Messages: require('./Message.js')
 
 }

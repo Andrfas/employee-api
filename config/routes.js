@@ -59,7 +59,9 @@ module.exports.routes = {
 
   'GET /confirm/:clientType/:clientId': 'CredentialsController.confirmEmail',
 
-  'GET /skill': 'SkillController.getSkills'
+  'GET /skill': 'SkillController.getSkills',
+
+  'PUT /apply': 'ApplyController.createApply'
 
   /***************************************************************************
   *                                                                          *
