@@ -40,19 +40,22 @@ function getApplicatns (req, res) {
     	},
     	function (array, callback) {
     		async.eachLimit(array, 1, function(apply, callb) {
+    			console.log('lol', apply);
                 requestsDB.findOne('Employee', {'_id':  apply.employee_id}, function(err, response){
 			        if (err) {
 			            return callb(err);
 			        }
-
-			        var obj = {
-			        	_id: response._id,
-			        	firstName: response.firstName,
-			        	lastName: response.lastName,
-			        	letter: apply.letter
-			        }
-			        employies.push(obj);
-			        return callb(null);
+			        console.log('gege',response);
+			        if (response !== null){
+				        var obj = {
+				        	_id: response._id,
+				        	firstName: response.firstName,
+				        	lastName: response.lastName,
+				        	letter: apply.letter
+				        }
+				        employies.push(obj);
+				        return callb(null);
+			    	} else callb(null);
 			    })
           	}, function(err) {
                 if(err) {
