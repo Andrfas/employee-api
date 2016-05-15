@@ -38,7 +38,7 @@ function createEmployee (req, res) {
     var employee = _.cloneDeep(fields)
     delete employee.email 
     delete employee.password
-
+    employee.availability = true;
     async.auto({
     	checkIfEmail: function (callback){
             requestsDB.findOne('Credentials', {email: fields.email}, function(err,response){
