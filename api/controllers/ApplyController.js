@@ -13,7 +13,9 @@ module.exports = {
 function createApply (req, res) {
     if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
         return res.badRequest({message: 'employeeId, letter, advertId param is undefined'});
-    requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter')}, function(err, response) {
+    requestsDB.create('Messages', {employee_id: req.param('employeeId'), 
+        proposal_id: req.param('advertId'), letter: req.param('letter'),
+        advertTitle: req.param('advertTitle'), companyName: req.param('companyName')}, function(err, response) {
         if (err) {
             return res.badRequest(err);
         }
@@ -48,12 +50,10 @@ function getApplicatns (req, res) {
     	},
     	function (array, callback) {
     		async.eachLimit(array, 1, function(apply, callb) {
-    			console.log('lol', apply);
                 requestsDB.findOne('Employee', {'_id':  apply.employee_id}, function(err, response){
 			        if (err) {
 			            return callb(err);
 			        }
-			        console.log('gege',response);
 			        if (response !== null){
 				        var obj = {
 				        	_id: response._id,
