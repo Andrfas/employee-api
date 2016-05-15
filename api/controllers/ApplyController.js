@@ -12,6 +12,7 @@ module.exports = {
 function createApply (req, res) {
 	if (!req.param('employeeId') || !req.param('letter') || !req.param('advertId'))
         return res.badRequest({message: 'employeeId, letter, advertId param is undefined'});
+
     requestsDB.create('Messages', {employee_id: req.param('employeeId'), 
         proposal_id: req.param('advertId'), letter: req.param('letter'),
         advertTitle: req.param('advertTitle'), companyName: req.param('companyName')}, function(err, response) {
@@ -20,6 +21,27 @@ function createApply (req, res) {
 	    }
 	    res.json({status:200});
 	})
+
+    async.waterfall([
+    	function (callback) {
+    		requestsDB.findOne('Messages', {employee_id: req.param('employeeId')}, function(err, found){
+    			if (err){
+    				callback(err);
+    			}
+    			callback(null, found);
+    		})
+    	}],
+    function(err, result){
+    	if (result !== null) return res.json({message: "You have already applied for this job"});
+    	if (err) return res.badRequest(err);
+    	requestsDB.create('Messages', {employee_id: req.param('employeeId'), proposal_id: req.param('advertId'), letter: req.param('letter')}, function(err, response) {
+		    if (err) {
+		        return res.badRequest(err);
+		    }
+		    res.json({status:200});
+		})	
+    })
+
 }
 
 function getApplicatns (req, res) {
@@ -42,15 +64,16 @@ function getApplicatns (req, res) {
 			        if (err) {
 			            return callb(err);
 			        }
-
-			        var obj = {
-			        	_id: response._id,
-			        	firstName: response.firstName,
-			        	lastName: response.lastName,
-			        	letter: apply.letter
-			        }
-			        employies.push(obj);
-			        return callb(null);
+			        if (response !== null){
+				        var obj = {
+				        	_id: response._id,
+				        	firstName: response.firstName,
+				        	lastName: response.lastName,
+				        	letter: apply.letter
+				        }
+				        employies.push(obj);
+				        return callb(null);
+			    	} else callb(null);
 			    })
           	}, function(err) {
                 if(err) {
