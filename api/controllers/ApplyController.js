@@ -41,7 +41,7 @@ function getApplicatns (req, res) {
 
     async.waterfall([
     	function (callback) {
-    		requestsDB.find('Messages', {proposal_id: req.params.advertId}, function (err, found) {
+    		requestsDB.find('Messages', {proposal_id: req.params.advertId, status:null}, function (err, found) {
 		    	if (err) {
 		    		callback(err);
 		    	}
@@ -56,6 +56,8 @@ function getApplicatns (req, res) {
 			        }
 			        if (response !== null){
 				        var obj = {
+                            application:apply,
+                            employee: response,
 				        	_id: response._id,
 				        	firstName: response.firstName,
 				        	lastName: response.lastName,
