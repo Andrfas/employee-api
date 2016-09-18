@@ -37,3 +37,4 @@ Please make sure you have mongo started before running server.
 If you see error after pulling repo, please try to make `npm install`.
 
 Changing from Andrew
+Changing from Max
