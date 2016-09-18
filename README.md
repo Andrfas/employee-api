@@ -4,7 +4,7 @@ An application for students to help them find work or courses!
 Good look!
 
 
-## If you are working on back-end:
+## If you are working on back-end!
 
 #### Lift server without api-tests:
 ```
