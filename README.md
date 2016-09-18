@@ -38,5 +38,5 @@ If you see error after pulling repo, please try to make `npm install`.
 
 Changing from Andrew
 Changing from Max
-
 One more changin from Max
+One more changin from Andrew
