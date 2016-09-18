@@ -16,7 +16,7 @@ grunt lift
 grunt testLift
 ```
 
-#### Run only api-tests:
+#### Run only api-tests: run, baby, run
 ```
 grunt testServer
 ```
