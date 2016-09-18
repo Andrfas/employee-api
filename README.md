@@ -1,6 +1,7 @@
 # Employee
 
 An application for students to help them find work or courses!
+Good luck!
 
 
 ## If you are working on back-end:
