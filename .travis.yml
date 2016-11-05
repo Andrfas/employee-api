@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - stable
+
+before_script:
+  - git config --global user.email "anton.netudykhata@uptech.team"
+  - git config --global user.name "Anton Netudykhata"
+  - npm install -g grunt
+
+
+script: grunt testServer 
+
+notifications:
+  slack:
+    rooms:
+      - kpi-integration-2016:zvKvQcOYpf5YKTKXeIyl9Tzs#eldack
+    on_success: always
+    on_failure: always
+    on_start: always
