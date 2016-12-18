@@ -1,9 +1,15 @@
 # commands for Docker
-Команда для побудови образу:
+
+#### Команда для побудови образу:
+
 `docker build -t employee .`
-Команда для запуску контейнера з сервером (перше завдання):
+
+#### Команда для запуску контейнера з сервером (перше завдання):
+
 `docker run -d -p 1337:1337 employee grunt lift` 
-Команда для запуску контейнера, який побудує production-директорію в папку `/home/USER/employee_prod` (друге завдання):
+
+#### Команда для запуску контейнера, який побудує production-директорію в папку `/home/USER/employee_prod` (друге завдання):
+
 `docker run -d  -v /home/USER/employee_prod:/usr/src/app/www employee grunt buildProd`
 
 # Employee
